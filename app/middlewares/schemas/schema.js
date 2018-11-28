@@ -69,7 +69,7 @@ var UserSchema = new Schema({
 
   var TokenSchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'Users', required: true},
-    token:{type: Text, required: true},
+    token:{type: String, required: true},
     created_time: {type: Date, default: Date.now}
   });
 

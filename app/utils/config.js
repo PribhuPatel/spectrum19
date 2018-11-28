@@ -6,7 +6,10 @@ module.exports = {
        you can also opt for env variables  
     */
     mongoDB : {
-        host : 'localhost',
+        user: 'admin',
+        password: 'shreeji1',
+        host : 'ds135003.mlab.com',
+        port : 35003,
         database : 'spectrum'
     },
     /* do not change this salrounds value */

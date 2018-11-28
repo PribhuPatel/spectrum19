@@ -12,8 +12,8 @@ var UserSchema = new Schema({
     today_payment: {type: Number, required: true, default: 0 },
     status: {type:Boolean, required:true},
     payment_history : [{
-      date: {type: Date , required: true},
-      payment: {type: Number, required: true}
+      date: {type: Date },
+      payment: {type: Number}
     }],
     registered: {
       participants: [{type:Schema.Types.ObjectId, ref: 'Participants'}],

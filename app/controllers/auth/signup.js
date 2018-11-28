@@ -12,8 +12,11 @@ module.exports = {
        console.log(olduser);
     if(olduser===null){
         var user = new Users({
+            name: req.body.name,
             phone: req.body.phone,
             password  : req.body.password,
+            role: req.body.role,
+            status: 1
         });
        await user.save((err)=>{
             if(err) {

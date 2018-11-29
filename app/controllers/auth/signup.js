@@ -7,7 +7,7 @@ module.exports = {
     signup: async (req, res) => {
         
         let userPhone = req.body.phone;
-        let olduser = await getData(Users,{phone:userPhone});
+        let olduser = await getSingleData(Users,{phone:userPhone});
        //console.log(olduser.length);
        console.log(olduser);
     if(olduser===null){

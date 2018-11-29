@@ -19,9 +19,9 @@ module.exports = {
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });
            // res.send("sada");
         //   console
-        res.append('Set-Cookie', 'access-token=' + token + ';');
+      //  res.append('Set-Cookie', 'access-token=' + token + ';');
             //return res.cookie('accesstoken',token,{ maxAge: 365 * 24 * 60 * 60 * 1000}).json({status:true,login:true ,username:true,password:true,error:false});
-            return res.json({status:true,login:true ,username:true,password:true,error:false});
+            return res.json({status:true,login:true ,username:true,password:true,error:false, token: token});
           } else{
             return res.json({status:true,login:false,username: true,password:false,error:false});
           }

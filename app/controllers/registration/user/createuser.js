@@ -1,10 +1,9 @@
 
-
-var {Users} = require('../../middlewares/schemas/schema');
-var {getSingleData} = require('../../utils/helpers/general_one_helper');
+var {Users} = require('../../../middlewares/schemas/schema');
+var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
-    signup: async (req, res) => {
+    createUser : async (req, res) => {
         
         let userPhone = req.body.phone;
         let olduser = await getSingleData(Users,{phone:userPhone});

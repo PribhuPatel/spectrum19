@@ -22,12 +22,15 @@ module.exports = {
             createby: user._id,
             college: req.body.college
         });
+        //let a= 10;
        await newParticipant.save(async (err)=>{
             if(err) {
               //  console.log(err);
                 res.send(err);
             }
             else{
+                user["today_payment"] = user["today_payment"] + 30;
+                console.log(user["today_payment"]);
                 await user.registered.participants.push(newParticipant._id);
                 await user.save();
                // console.log("Saved");

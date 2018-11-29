@@ -9,5 +9,7 @@ router.use('/event', require('./events'));
 
 router.use('/department', require('./department'));
 
+router.use('/college', require('./college'));
+
 
 module.exports = router;

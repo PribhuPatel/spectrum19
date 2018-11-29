@@ -83,5 +83,5 @@ var GlobalVars = mongoose.model('GlobalVars', GlobalVarSchema);
 var Tokens = mongoose.model('Tokens', TokenSchema);
 
 module.exports = {
-    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens
+    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges
 }

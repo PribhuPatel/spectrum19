@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 
-// router.use('/participant',require('./participant'));
+ router.use('/participant',require('./participant'));
 
 router.use('/event', require('./events'));
 

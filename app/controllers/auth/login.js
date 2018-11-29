@@ -14,7 +14,7 @@ module.exports = {
           return res.json({status:true,login:false,username: false,password:false,error:false});
         } else{
           if(loginuser.password===req.body.password){
-            let token = await createToken({data: {user:{name:loginuser.name, id: loginuser.phone}}});
+            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone}}});
           
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });
            // res.send("sada");

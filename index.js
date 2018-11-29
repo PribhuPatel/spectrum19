@@ -33,6 +33,14 @@ app.use(cookieParser());
 //     res.render("index");
 // });
 
+ app.use((req,res,next)=>{
+   req.user = {};
+   req.user.phone = 9586556778;
+   req.user.name = 'Shreeji';
+   next();
+})
+
+
 app.use(express.static('./public'));
 app.use('/',require('./app/router/index'));
 app.use('/auth',require('./app/controllers/auth'));
@@ -40,7 +48,7 @@ app.use('/auth',require('./app/controllers/auth'));
 app.use('/registration',require('./app/controllers/registration'));
 app.use('/department',require('./app/controllers/registration/department'));
 
-
+var port = process.env.PORT || 8080;
 /* query all the errors */
 // app.use('/getErrorsList', async ( req, res ) =>{
 //     const haha =  await require('./app/logger').queryErrors(new Date('2018-2-11'), new Date());
@@ -48,6 +56,6 @@ app.use('/department',require('./app/controllers/registration/department'));
 //   });
 
 
-app.listen(5000,()=>{
+app.listen(port,()=>{
     console.log("server started");
 });

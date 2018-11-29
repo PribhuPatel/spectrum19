@@ -40,6 +40,13 @@ app.use(cookieParser());
    next();
 })
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
 
 app.use(express.static('./public'));
 app.use('/',require('./app/router/index'));
@@ -48,7 +55,7 @@ app.use('/auth',require('./app/controllers/auth'));
 app.use('/registration',require('./app/controllers/registration'));
 app.use('/department',require('./app/controllers/registration/department'));
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 5000;
 /* query all the errors */
 // app.use('/getErrorsList', async ( req, res ) =>{
 //     const haha =  await require('./app/logger').queryErrors(new Date('2018-2-11'), new Date());
@@ -57,5 +64,5 @@ var port = process.env.PORT || 8080;
 
 
 app.listen(port,()=>{
-    console.log("server started");
+    console.log("server started on port:" + port);
 });

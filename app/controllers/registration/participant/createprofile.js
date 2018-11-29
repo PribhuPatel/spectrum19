@@ -16,6 +16,7 @@ module.exports = {
         var newParticipant = new Participants({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
+            cvm: req.body.cvm,
             email: req.body.email,
             phone: req.body.phone,
             createby: user._id,

@@ -1,6 +1,6 @@
 /* this middleware helps us in verifying the token */
 
-const tokenHelper = require('../utils/tokenHelper');
+const tokenHelper = require('../utils/tokenhelper');
 //const resHandler = require('../utils/responseHandler');
 
 exports.verifyToken = async (req,res,next) =>{

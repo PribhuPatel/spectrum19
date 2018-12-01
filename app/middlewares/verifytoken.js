@@ -33,11 +33,11 @@ exports.verifyToken = async (req,res,next) =>{
      //   resHandler.errorMessage(res,'not a valid token',req);
     }
 }
-exports.checkIfAuthenticated = (req,res,next)=>{
-    if(!req.cookies.accesstoken){
-        //res.redirect('/login');
-        next();
-    }else{
-        res.redirect('/user');
-    }
-}
+// exports.checkIfAuthenticated = (req,res,next)=>{
+//     if(!req.cookies.accesstoken){
+//         //res.redirect('/login');
+//         next();
+//     }else{
+//         res.redirect('/user');
+//     }
+// }

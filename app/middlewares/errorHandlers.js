@@ -13,7 +13,7 @@ module.exports = {
   },
   /* this is for handling 404 error */
   handle404Error: async (req, res) => {
-    res.status(404).redirect('/');
+    res.status(404).redirect('/sadad');
   },
   /* centralizing all the errors */
   handleExceptions: fn =>

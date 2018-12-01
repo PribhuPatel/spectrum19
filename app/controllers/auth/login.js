@@ -1,7 +1,7 @@
 
 var {Users} = require('../../middlewares/schemas/schema');
 var {getSingleData} = require('../../utils/helpers/general_one_helper');
-var {createToken} = require('../../utils/tokenhelper.js');
+var {createToken,verifyToken} = require('../../utils/tokenhelper.js');
 
 module.exports = {
     login:  async(req, res) => {
@@ -9,13 +9,14 @@ module.exports = {
         let userPhone = req.body.phone;
         let loginuser = await getSingleData(Users,{phone:userPhone});
        //console.log(olduser.length);
-      
+      console.log(loginuser);
         if(!loginuser){
           return res.json({status:true,login:false,username: false,password:false,error:false});
         } else{
           if(loginuser.password===req.body.password){
-            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone}}});
-          
+            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role}}});
+            const tokenData = await verifyToken(token);
+            console.log(tokenData);
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });
            // res.send("sada");
         //   console

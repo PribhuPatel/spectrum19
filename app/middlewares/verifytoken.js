@@ -5,13 +5,21 @@ const tokenHelper = require('../utils/tokenhelper');
 
 exports.verifyToken = async (req,res,next) =>{
     // console.log(req.get('Cookie'));
-   // console.log(req.cookies.accesstoken);
+    //console.log(req.cookies.accesstoken);
+   // console.log(req.get('authtoken'));
+    console.log(req.body.auth);
     try{
-        if(req.cookies.accesstoken == undefined || null){
+        // if(req.cookies.accesstoken == undefined || null){
+        //     return res.redirect('/');
+        // }
+        if(req.body.auth == undefined || null){
             return res.redirect('/');
         }
-        const tokenData = await tokenHelper.verifyToken(req.cookies.accesstoken);
-        req.user= tokenData.data.user;
+        // const tokenData = await tokenHelper.verifyToken(req.cookies.accesstoken);
+        
+        const tokenData = await tokenHelper.verifyToken(req.body.auth);
+        console.log(tokenData);
+       req.user= tokenData.data.user;
        // return tokenData;
         next();
     }catch(error){

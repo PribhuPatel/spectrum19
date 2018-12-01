@@ -29,17 +29,18 @@ app.use(cookieParser());
 //     res.render("index");
 // });
 
- app.use((req,res,next)=>{
-   req.user = {};
-   req.user.phone = 9586556778;
-   req.user.name = 'Shreeji';
-   next();
-})
+//  app.use((req,res,next)=>{
+//    req.user = {};
+//   //  req.user.phone = 9586556778;
+//   //  req.user.name = 'Shreeji';
+//    next();
+// })
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
+  //res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Credentials", "true");
@@ -52,7 +53,7 @@ app.use(express.static('./public'));
 app.use('/',require('./app/router/index'));
 app.use('/auth',require('./app/controllers/auth'));
 //app.use('/registration',verifyToken,require('./app/controllers/registration'));
-app.use('/registration',require('./app/controllers/registration'));
+app.use('/registration',verifyToken,require('./app/controllers/registration'));
 app.use('/user',verifyToken,require('./app/controllers/user'));
 //app.use('/department',require('./app/controllers/registration/department'));
 //app.use('/users',require('./app/controllers/re'));

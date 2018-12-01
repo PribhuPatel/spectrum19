@@ -24,6 +24,6 @@ exports.verifyToken = async (req,res,next) =>{
         if(error.name === 'TokenExpiredError'){
             return resHandler.errorMessage(res,'token expired',req);
         }
-        resHandler.errorMessage(res,'not a valid token',req);
+      //  resHandler.errorMessage(res,'not a valid token',req);
     }
 }

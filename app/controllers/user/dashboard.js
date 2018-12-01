@@ -5,7 +5,7 @@ var {getSingleDataWithPopulate, getSingleData,getManyData, getManyDataWithPopula
 
 module.exports = {
     dashboard: async (req, res) => {
-        
+        console.log(req);
        // let name = req.body.name;
         let userphone = req.body.phone;
        // let id = req.body.id;

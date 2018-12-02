@@ -9,7 +9,7 @@ module.exports = {
         let partiPhone = req.body.phone;
         let participant = await getSingleData(Participants,{phone:partiPhone});
         let user = await getSingleData(Users, {phone: req.user.phone});
-        let college = await getSingleData(Colleges,{$add:[{name: req.body.college.split(",")[0]},{city: req.body.college.split(",")[1]}]});
+        let college = await getSingleData(Colleges,{$and:[{name: req.body.college.split(",")[0]},{city: req.body.college.split(",")[1]}]});
         console.log(college);
        //console.log(olduser.length);
        //console.log(olduser);
@@ -39,7 +39,7 @@ module.exports = {
             }
         });
     }else{
-        res.json({status: true, alreadyAdded: true});
+        res.json({status: true,addParticipant: false, alreadyAdded: true});
     }
 //   console.log(req.body.email);
 //   console.log(req.body.password);

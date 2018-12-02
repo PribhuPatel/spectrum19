@@ -66,10 +66,10 @@ var port = process.env.PORT || 5000;
 //   });
 
   // catch 404 and forward to error handler
-  //app.use(handle404Error);
+  app.use(handle404Error);
   
   // error handler
-  //app.use(handleDevErrors);
+  app.use(handleDevErrors);
 
 app.listen(port,()=>{
     console.log("server started on port:" + port);

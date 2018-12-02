@@ -8,27 +8,28 @@ module.exports = {
         
         let name = req.body.name;
         let city = req.body.city;
+        let cvm = req.body.cvm;
         let college = await getSingleData(Colleges,{$and:[{name: name},{city: city}]});
        //console.log(olduser.length);
        //console.log(olduser);
     if(college===null){
-        var newCollege = new Departments({
+        var newCollege = new Colleges({
             name: name,
             city: city,
             cvm: cvm
         });
-       await newCollge.save((err)=>{
+       await newCollege.save((err)=>{
             if(err) {
               //  console.log(err);
                 res.send(err);
             }
             else{
                // console.log("Saved");
-            res.send(newCollge + "saved");
+            res.json({status: true, collegeAdded: true});
             }
         });
     }else{
-        res.send("Collge Already exist");
+        res.json({status:true,collegeAdded:false, alreadyInserted: true});
     }
 //   console.log(req.body.email);
 //   console.log(req.body.password);

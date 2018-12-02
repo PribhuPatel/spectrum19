@@ -18,7 +18,7 @@ module.exports = {
         let today_registered = user.registered.participants.length;
         let today_payment = user.today_payment;
         let events = await getManyDataWithPopulate(Departments,{},'events','name','name');
-        return res.json({status:true, name: user.name,today_registered: today_registered,today_payment: today_payment,eventsdata:events});
+        return res.json({status:true, today_registered: today_registered,today_payment: today_payment,eventsdata:events});
     }
 }
   };

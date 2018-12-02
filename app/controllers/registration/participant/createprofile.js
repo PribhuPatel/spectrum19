@@ -35,7 +35,7 @@ module.exports = {
                 await user.registered.participants.push(newParticipant._id);
                 await user.save();
                // console.log("Saved");
-            res.json({status: true, addParticipant: true,participant: newParticipant});
+            res.json({status: true, addParticipant: true,participant_payment: newParticipant.payment});
             }
         });
     }else{

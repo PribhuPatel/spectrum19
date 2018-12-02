@@ -1,7 +1,7 @@
 
 
 var {Departments, Events} = require('../../../middlewares/schemas/schema');
-var {getSingleDataWithPopulate,getManyDataWithPopulate} = require('../../../utils/helpers/general_one_helper');
+var {getSingleDataWithPopulate,getManyDataWithPopulate,getManyData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
     getEvent: async (req, res) => {
@@ -17,17 +17,26 @@ module.exports = {
         res.send(event);
     }
     },
-    getEvents: async(req,res)=>{
-        let name = req.body.name;
-        let id = req.body.eventid;
+    getEventsWithDepartment: async(req,res)=>{
+       // let name = req.body.name;
+       // let id = req.body.eventid;
 
         let events = await getManyDataWithPopulate(Events,{},'department');
 
     if(events.length===0){
         res.send("No Event Found");
     }else{
-        res.send(events);
+        res.json(events);
     }
+    },
+    getEvents: async(req,res)=>{
+        let events = await getManyData(Events,{},'name max_members min_members');
+
+        if(events.length===0){
+            res.json({status: false});
+        }else{
+            res.json({status:true,events:events});
+        }   
     }
   };
   

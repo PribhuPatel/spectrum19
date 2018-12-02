@@ -5,7 +5,7 @@ router.use('/participant',require('./participant'));
 
 router.use('/event', require('./events'));
 
-//router.use('/evententry', require('./evententry'));
+router.use('/evententry', require('./evententry'));
 
 router.use('/department', require('./department'));
 

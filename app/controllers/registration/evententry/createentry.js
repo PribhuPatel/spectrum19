@@ -1,53 +1,70 @@
 
 
-var {Departments, Events} = require('../../../middlewares/schemas/schema');
+var {Events, Entries, Users, Participants} = require('../../../middlewares/schemas/schema');
 var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
     createEntry: async (req, res) => {
-        
-        let name = req.body.name;
-        let department = await getSingleData(Departments,{name: req.body.department});
-        let max_participants= req.body.max_participants;
-        let min_members= req.body.min_members;
-        let max_members= req.body.max_members;
-        let price = req.body.price;
+        try{
+        let user = await getSingleData(Users,{phone: req.user.phone});
+        let event = await getSingleData(Events,{name: req.body.intrested_event});
+        //console.log(req.body.team_members);
+        let team_leader = await getSingleData(Participants,{phone: req.body.team_leader});        
+        console.log(team_leader);
+        //console.log(r);
+        //var team_members = JSON.parse(req.body.team_members);
+      //  console.log(team_members);
+        let participants = [];
+        let partifull = [];
+        participants.push(team_leader._id);
+        partifull.push(team_leader);
+        req.body.team_members.forEach(async (element) => {
+            let parti = await getSingleData(Participants,{phone: element.key});
+            participants.push(parti._id);
+            partifull.push(parti);
+        });
+        console.log(participants);
 
-        let event = await getSingleData(Events,{name: name});
+        let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
        //console.log(olduser.length);
        //console.log(olduser);
-       if(department === null){
-           res.send("Cannot Add Event Without Department");
-       } else{
-    if(event===null){
-        var newEvent = new Events({
-            name: name,
-            department: department._id,
-            max_members:max_members,
-            min_members: min_members,
-            max_participants: max_participants,
-            price: price,
+    if(oldentry === null){
+
+        var newEntry = new Entries({
+            created_by: user._id,
+            team_leader: team_leader._id,
+            event: event._id,
+            participants: participants
         });
 
-       await newEvent.save(async (err)=>{
+       await newEntry.save(async (err)=>{
             if(err) {
               //  console.log(err);
                 res.send(err);
             }
             else{
-                department.events.push(newEvent._id);
-                await department.save();
-               // console.log("Saved");
-            res.send(newEvent + "saved");
+                partifull.forEach(element=>{
+                    element.events.push(event._id);
+                    element["payment"] = element["payment"] + event.price;
+                    element.save();
+                });
+
+                user["today_payment"] = user["today_payment"] + event.price;               
+               user.registered.entries.push(newEntry._id);
+                user.save();
+            return res.json({status: true, enrryadded: true,user: user, entry: newEntry});
             }
         });
     }else{
-        res.send("Event Already exist");
+        return res.json({status: true, entryadded: false});
     }
+} catch(e){
+    console.log(e);
+    return res.json({status:false});
 }
 //   console.log(req.body.email);
 //   console.log(req.body.password);
      // res.json({ status: true });
-    },
+    }
   };
   

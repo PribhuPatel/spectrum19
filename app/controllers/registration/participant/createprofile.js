@@ -1,6 +1,6 @@
 
 
-var {Participants, Users} = require('../../../middlewares/schemas/schema');
+var {Participants, Users, Colleges} = require('../../../middlewares/schemas/schema');
 var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
@@ -9,6 +9,7 @@ module.exports = {
         let partiPhone = req.body.phone;
         let participant = await getSingleData(Participants,{phone:partiPhone});
         let user = await getSingleData(Users, {phone: req.user.phone});
+        let college = await getSingleData(Colleges,{$add:[{name: req.body.college.split(",")[0]},{city: req.body.college.split(",")[1]}]});
         console.log(user);
        //console.log(olduser.length);
        //console.log(olduser);
@@ -16,11 +17,11 @@ module.exports = {
         var newParticipant = new Participants({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
-            cvm: req.body.cvm,
+            cvm: college.cvm,
             email: req.body.email,
             phone: req.body.phone,
             createby: user._id,
-            college: req.body.college
+            college: college._id
         });
         //let a= 10;
        await newParticipant.save(async (err)=>{
@@ -34,11 +35,11 @@ module.exports = {
                 await user.registered.participants.push(newParticipant._id);
                 await user.save();
                // console.log("Saved");
-            res.send(newParticipant + "saved");
+            res.json({status: true, addParticipant: true,participant: newParticipant});
             }
         });
     }else{
-        res.send("Participant Already exist");
+        res.json({status: true, alreadyAdded: true});
     }
 //   console.log(req.body.email);
 //   console.log(req.body.password);

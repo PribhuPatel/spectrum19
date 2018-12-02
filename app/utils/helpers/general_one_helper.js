@@ -35,5 +35,12 @@ module.exports = {
                 (err ? reject(err) : resolve(result))
             })
         })
+    },
+    getManyDataWithPopulateWithLimit : async (Collection, query,limit, population,main_fields=null,populate_fields=null) =>{
+        return new Promise((resolve, reject) =>{
+            Collection.find(query,main_fields).limit(limit).populate(population,populate_fields).exec((err,result)=>{
+                (err ? reject(err) : resolve(result))
+            })
+        })
     }
 }

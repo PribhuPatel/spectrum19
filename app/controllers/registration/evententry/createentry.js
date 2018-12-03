@@ -6,6 +6,7 @@ var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 module.exports = {
     createEntry: async (req, res) => {
         try{
+        let payment = 0;
         let user = await getSingleData(Users,{phone: req.user.phone});
         let event = await getSingleData(Events,{name: req.body.intrested_event});
         //console.log(req.body.team_members);
@@ -44,15 +45,17 @@ module.exports = {
             }
             else{
                 partifull.forEach(element=>{
+                    payment = payment +  event.price;
                     element.events.push(event._id);
                     element["payment"] = element["payment"] + event.price;
                     element.save();
+                    user["today_payment"] = user["today_payment"] + event.price;     
                 });
 
                 user["today_payment"] = user["today_payment"] + event.price;               
                user.registered.entries.push(newEntry._id);
                 user.save();
-            return res.json({status: true, entryadded: true,user: user, entry: newEntry});
+            return res.json({status: true, entryadded: true, payment : payment});
             }
         });
     }else{

@@ -10,7 +10,7 @@ module.exports = {
         let user = await getSingleData(Users,{phone: req.user.phone});
         let event = await getSingleData(Events,{name: req.body.intrested_event});
         //console.log(req.body.team_members);
-        let team_leader = await getSingleData(Participants,{phone: req.body.team_leader},'_id college');        
+        let team_leader = await getSingleData(Participants,{phone: req.body.team_leader},'_id college events');        
         console.log(team_leader);
         //console.log(r);
         //var team_members = JSON.parse(req.body.team_members);
@@ -20,8 +20,8 @@ module.exports = {
         let partifull = [];
         participants.push(team_leader._id);
         partifull.push(team_leader);
-        req.body.team_members.forEach(async (element) => {
-            let parti = await getSingleData(Participants,{phone: element.key});
+        req.body.team_membears.forEach(async (element) => {
+            let parti = await getSingleData(Participants,{phone: element.key},'_id events');
             participants.push(parti._id);
             partifull.push(parti);
         });
@@ -45,6 +45,7 @@ module.exports = {
                 res.send(err);
             }
             else{
+                console.log(partigu);
                 partifull.forEach(element=>{
                     payment = payment +  event.price;
                     element.events.push(event._id);

@@ -34,7 +34,7 @@ module.exports = {
                 console.log(user["today_payment"]);
                 await user.registered.participants.push(newParticipant._id);
                 await college.registered.participants.push(newParticipant._id);
-                await user.save();
+                await college.save();
                 await user.save();
                // console.log("Saved");
             res.json({status: true, addParticipant: true,participant_payment: newParticipant.payment});

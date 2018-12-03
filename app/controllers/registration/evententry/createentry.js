@@ -6,6 +6,7 @@ var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 module.exports = {
     createEntry: async (req, res) => {
         try{
+            console.log(req.body);
         let payment = 0;
         let user = await getSingleData(Users,{phone: req.user.phone});
         let event = await getSingleData(Events,{name: req.body.intrested_event});
@@ -20,7 +21,7 @@ module.exports = {
         let partifull = [];
         participants.push(team_leader._id);
         partifull.push(team_leader);
-        req.body.team_membears.forEach(async (element) => {
+        req.body.team_members.forEach(async (element) => {
             let parti = await getSingleData(Participants,{phone: element.key},'_id events');
             participants.push(parti._id);
             partifull.push(parti);

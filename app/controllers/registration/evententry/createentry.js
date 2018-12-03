@@ -52,7 +52,7 @@ module.exports = {
                 user["today_payment"] = user["today_payment"] + event.price;               
                user.registered.entries.push(newEntry._id);
                 user.save();
-            return res.json({status: true, enrryadded: true,user: user, entry: newEntry});
+            return res.json({status: true, entryadded: true,user: user, entry: newEntry});
             }
         });
     }else{

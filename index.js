@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const ejs = require('ejs');
 const app = express();
@@ -58,6 +59,9 @@ app.use('/user',verifyToken,require('./app/controllers/user'));
 //app.use('/department',require('./app/controllers/registration/department'));
 //app.use('/users',require('./app/controllers/re'));
 
+console.log(process.env.MY_VAR);
+//process.env.MY_VAR = 5;
+console.log(parseInt(process.env.MY_VAR) === 1);
 var port = process.env.PORT || 5000;
 /* query all the errors */
 // app.use('/getErrorsList', async ( req, res ) =>{

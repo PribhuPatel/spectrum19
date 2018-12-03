@@ -29,9 +29,9 @@ module.exports = {
             })
         })
     },
-    getManyDataWithPopulate : async (Collection, query, population,main_fields=null,populate_fields=null) =>{
+    getManyDataWithPopulate : async (Collection, query, population,main_fields=null,populate_fields=null,options=null) =>{
         return new Promise((resolve, reject) =>{
-            Collection.find(query,main_fields).populate(population,populate_fields).exec((err,result)=>{
+            Collection.find(query,main_fields).populate(population,populate_fields,options).exec((err,result)=>{
                 (err ? reject(err) : resolve(result))
             })
         })

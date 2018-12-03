@@ -29,7 +29,7 @@ module.exports = {
         let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
        //console.log(olduser.length);
        //console.log(olduser);
-    if(oldentry === null){
+    if(oldentry === null && event.available_entries != 0){
 
         var newEntry = new Entries({
             created_by: user._id,
@@ -51,8 +51,9 @@ module.exports = {
                     element.save();
                     user["today_payment"] = user["today_payment"] + event.price;     
                 });
-                          
+                event["available_entries"] = event["available_entries"] - 1;
                user.registered.entries.push(newEntry._id);
+               event.save();
                 user.save();
             return res.json({status: true, entryadded: true, payment : payment});
             }

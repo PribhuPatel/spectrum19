@@ -51,8 +51,7 @@ module.exports = {
                     element.save();
                     user["today_payment"] = user["today_payment"] + event.price;     
                 });
-
-                user["today_payment"] = user["today_payment"] + event.price;               
+                          
                user.registered.entries.push(newEntry._id);
                 user.save();
             return res.json({status: true, entryadded: true, payment : payment});

@@ -51,7 +51,7 @@ var UserSchema = new Schema({
     min_members: {type: Number, required:true},
     max_members: {type: Number, required: true},
     price: {type: Number, required: true},
-    available_entries: {type: Number, required: true, default: max_participants}
+    available_entries: {type: Number, required: true}
   });
 
   var DepartmentSchema = new Schema({

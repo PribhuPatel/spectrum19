@@ -27,6 +27,7 @@ module.exports = {
             min_members: min_members,
             max_participants: max_participants,
             price: price,
+            available_entries:max_participants
         });
 
        await newEvent.save(async (err)=>{

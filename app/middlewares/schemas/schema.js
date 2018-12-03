@@ -37,7 +37,11 @@ var UserSchema = new Schema({
   var CollegeSchema = new Schema({
     name: {type: String, required: true},
     city: {type: String, required: true},
-    cvm: {type: Boolean, required: true}
+    cvm: {type: Boolean, required: true},
+    registered: {
+      participants: [{type:Schema.Types.ObjectId, ref: 'Participants'}],
+      entries: [{type: Schema.Types.ObjectId, ref: 'Entries'}]
+    }
   });
 
   var EventsSchema = new Schema({

@@ -6,32 +6,50 @@ var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 module.exports = {
     createEntry: async (req, res) => {
         try{
-            console.log(req.body);
+
         let payment = 0;
-        let user = await getSingleData(Users,{phone: req.user.phone});
+        let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');
         let event = await getSingleData(Events,{name: req.body.intrested_event});
         //console.log(req.body.team_members);
-        let team_leader = await getSingleData(Participants,{phone: req.body.team_leader},'_id college events');        
-        console.log(team_leader);
+        let team_leader = await getSingleData(Participants,{phone: req.body.team_leader},'_id college events payment');        
+        // console.log(team_leader);
         //console.log(r);
         //var team_members = JSON.parse(req.body.team_members);
       //  console.log(team_members);
       let college = await getSingleData(Colleges,{_id: team_leader.college},'registered');
         let participants = [];
         let partifull = [];
+        let parti = {};
+      
         participants.push(team_leader._id);
         partifull.push(team_leader);
-        req.body.team_members.forEach(async (element) => {
-            let parti = await getSingleData(Participants,{phone: element.key},'_id events');
-            participants.push(parti._id);
-            partifull.push(parti);
-        });
-        console.log(participants);
+        // await req.body.team_members.forEach((element) => {
+        //     console.log();
+        //     parti =  getSingleData(Participants,{phone: element.key},'_id events payment');
+        //     console.log(parti);
+        //     participants.push(parti._id);
+        //     partifull.push(parti);
+        // });
+        let runloop = await runForEach(Participants,req.body.team_members);
+       
+         participants = participants.concat(runloop.participants);
+         partifull = partifull.concat(runloop.partifull);
+        // participants = runloop.participants;
+        // partifull = runloop.partifull;
+     
+
+        
+    //     console.log();
+    //     console.log(participants);
+    //    console.log();
+    //   console.log(partifull);
 
         let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
        //console.log(olduser.length);
-       //console.log(olduser);
-    if(oldentry === null && event.available_entries != 0){
+       //console.log();
+       console.log(oldentry);
+       //console.log();
+       if(oldentry === null && event.available_entries != 0){
 
         var newEntry = new Entries({
             created_by: user._id,
@@ -46,7 +64,7 @@ module.exports = {
                 res.send(err);
             }
             else{
-                console.log(partigu);
+
                 partifull.forEach(element=>{
                     payment = payment +  event.price;
                     element.events.push(event._id);
@@ -76,3 +94,35 @@ module.exports = {
     }
   };
   
+
+  var runForEach = async (Participants,team_members)=>{
+    //   let promises = [];
+        var participants = [];
+        var partifull = [];
+    //     team_members.forEach(async (element) => {
+    //         // console.log();
+    //         parti = await getSingleData(Participants,{phone: element.key},'_id events payment');
+    //         promises.push(parti); 
+    //         //console.log(parti);
+    //         // participants.push(parti._id);
+    //         // partifull.push(parti);
+    //     });
+    //     console.log(promises);
+    //     //console.log("data" +partifull);
+    //     Promise.all(promises).then((elem)=>{
+    //         console.log(elem);
+    //     });
+    await asyncForEach(team_members,async (element)=>{
+        parti = await getSingleData(Participants,{phone: element.key},'_id events payment'); 
+          await  participants.push(parti._id);
+           await  partifull.push(parti);
+    })
+    return {participants,partifull};
+  }
+
+
+  async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }

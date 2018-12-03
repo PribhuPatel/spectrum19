@@ -10,7 +10,7 @@ module.exports = {
         let participant = await getSingleData(Participants,{phone:partiPhone});
         let user = await getSingleData(Users, {phone: req.user.phone});
         let college = await getSingleData(Colleges,{$and:[{name: req.body.college.split(",")[0]},{city: req.body.college.split(",")[1]}]});
-        console.log(college);
+
        //console.log(olduser.length);
        //console.log(olduser);
     if(participant===null){

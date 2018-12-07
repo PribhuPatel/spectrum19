@@ -15,7 +15,7 @@ module.exports = {
        limit=parseInt(limit);
        }
        try{
-           if(partiPhone === null || partiPhone==='' || partiPhone === undefined){
+           if(partiPhone === null || partiPhone=== '' || partiPhone === undefined){
             let participant = await getManyDataWithPopulateWithLimit(Participants,{},limit,'college','firstname lastname college phone','name city');
             return res.json({status: true, participants: participant});
            }

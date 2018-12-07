@@ -42,5 +42,12 @@ module.exports = {
                 (err ? reject(err) : resolve(result))
             })
         })
+    },
+    getCount : async (Collection, query) =>{
+        return new Promise((resolve, reject) =>{
+            Collection.countDocuments(query,(err,result)=>{
+                (err ? reject(err) : resolve(result))
+            })
+        })
     }
 }

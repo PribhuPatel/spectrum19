@@ -64,7 +64,8 @@ var UserSchema = new Schema({
     team_leader:{type: Schema.Types.ObjectId, ref:'Participats',required:true},
     event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
     participants: [{type: Schema.Types.ObjectId , ref:'Participants', required: true}],
-    created_by: {type: Schema.Types.ObjectId, ref: 'Users',required:true}
+    created_by: {type: Schema.Types.ObjectId, ref: 'Users',required:true},
+    payment: {type: Number, required:true}
   });
 
   var GlobalVarSchema= new Schema({

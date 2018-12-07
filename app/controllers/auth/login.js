@@ -22,7 +22,7 @@ module.exports = {
         //   console
       //  res.append('Set-Cookie', 'access-token=' + token + ';');
             //return res.cookie('accesstoken',token,{ maxAge: 365 * 24 * 60 * 60 * 1000}).json({status:true,login:true ,username:true,password:true,error:false});
-            return res.json({status:true,login:true ,username:true,password:true,error:false, token: token, name: loginuser.name});
+            return res.json({status:true,login:true ,username:true,password:true,error:false, token: token, name: loginuser.name,role: loginuser.role});
           } else{
             return res.json({status:true,login:false,username: true,password:false,error:false});
           }

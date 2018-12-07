@@ -11,7 +11,7 @@ exports.connectMongoDb = (req, res, next) => {
   /* Get Mongoose to use the global promise library */
   mongoose.Promise = global.Promise;
   /* connecting to MongoDB */
-  mongoose.connect(url,{ useNewUrlParser: true });
+  mongoose.connect(url,{ useCreateIndex: true,useNewUrlParser: true });
   const db = mongoose.connection;
   // Bind connection to error event (to get notification of connection errors)
   db.on('error', (error) => { next(error); });

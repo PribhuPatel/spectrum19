@@ -36,7 +36,8 @@ module.exports = {
          partifull = partifull.concat(runloop.partifull);
         // participants = runloop.participants;
         // partifull = runloop.partifull;
-     
+        //let pay = 0;
+        payment = participants.length * event.price;
 
         
     //     console.log();
@@ -55,7 +56,8 @@ module.exports = {
             created_by: user._id,
             team_leader: team_leader._id,
             event: event._id,
-            participants: participants
+            participants: participants,
+            payment: payment
         });
 
        await newEntry.save(async (err)=>{
@@ -66,7 +68,7 @@ module.exports = {
             else{
 
                 partifull.forEach(element=>{
-                    payment = payment +  event.price;
+               //     payment = payment +  event.price;
                     element.events.push(event._id);
                     element["payment"] = element["payment"] + event.price;
                     element.save();

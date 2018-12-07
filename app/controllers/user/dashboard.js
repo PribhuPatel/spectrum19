@@ -13,7 +13,7 @@ module.exports = {
         let user = await getSingleData(Users,{phone: req.user.phone});
         
         if(user===null){
-        return res.send("No User Found");
+            return res.json({status: true,message:"No User Found"});
     }else{
         let today_registered = user.registered.participants.length;
         let today_payment = user.today_payment;

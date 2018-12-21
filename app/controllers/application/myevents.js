@@ -10,7 +10,7 @@ module.exports = {
         // if(events.length===0){
         //     res.json({status: true});
         // }else{
-            return res.json({status:true,events:events,name:req.user.name});
+            return res.json({status:true,events:events,name:req.user.name, events_completed: 1});
         // }   
     }
   };

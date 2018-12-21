@@ -5,6 +5,8 @@ router.use('/auth',require('./auth'));
 
 router.get('/myevents',verifyToken,require('./myevents').getEvents);
 
+router.get('/allevents',verifyToken,require('./allevents').getEvents);
+
 // router.use('/event', require('./events'));
 
 // router.use('/evententry', require('./evententry'));

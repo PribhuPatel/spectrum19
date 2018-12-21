@@ -34,6 +34,7 @@ module.exports = {
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
+            return res.json({status:true,otp:false,username: true,error:true});
         } else {
             console.log('Email sent: ' + info.response);
         }

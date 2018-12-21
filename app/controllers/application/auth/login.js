@@ -64,14 +64,14 @@ module.exports = {
 
     login: async(req,res)=>{
         let userPhone = req.body.phone;
-        let loginuser = await getSingleData(Participants,{phone:userPhone},'name phone password');
+        let loginuser = await getSingleData(Participants,{phone:userPhone},'firstname lastname phone password');
        //console.log(olduser.length);
       console.log(loginuser);
         if(!loginuser){
           return res.json({status:true,login:false,username: false,password:false,error:false});
         } else{
           if(loginuser.password===req.body.password){
-            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone}}});
+            let token = await createToken({data: {user:{firstname:loginuser.firstname,lastname:loginuser.lastname, phone: loginuser.phone}}});
             // const tokenData = await verifyToken(token);
             // console.log(tokenData);
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });

@@ -31,7 +31,8 @@ var UserSchema = new Schema({
     payment: {type: Number, required: true, default: 30},
     createby: { type: Schema.Types.ObjectId,ref: 'Users',required: true},
     created_date: { type: Date, default: Date.now },
-    events: [{type: Schema.Types.ObjectId, ref: 'Events'}]
+    events: [{type: Schema.Types.ObjectId, ref: 'Events'}],
+    password: {type:String}
   });
 
   var CollegeSchema = new Schema({
@@ -51,7 +52,18 @@ var UserSchema = new Schema({
     min_members: {type: Number, required:true},
     max_members: {type: Number, required: true},
     price: {type: Number, required: true},
-    available_entries: {type: Number, required: true}
+    available_entries: {type: Number, required: true},
+    description: {type: String},
+    rounds: {
+      round1: {type:String},
+      round2: {type:String},
+      round3: {type:String}, 
+    },
+    coordinators:[{
+      name: {type:String},
+      phone: {type:Number},
+      email: {type:String}
+    }]
   });
 
   var DepartmentSchema = new Schema({

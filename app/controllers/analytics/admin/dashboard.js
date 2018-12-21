@@ -17,10 +17,13 @@ module.exports = {
         let total_entries = await getCount(Entries,{});
         let total_events = await getCount(Events,{});
         let total_revenue  = await runForEach(Participants);
+        let events = await getManyDataWithPopulate(Events,{},'department','name max_participants available_entries','name');
         //let today_payment = user.today_payment;
         //let events = await getManyDataWithPopulate(Departments,{},'events','name linked_department','name',{available_entries:{ $ne: 0 }});
         //return res.json({status:true, today_registered: today_registered,today_payment: today_payment,eventsdata:events});
-        return res.json({status:true, total_registered:total_registered, total_entries: total_entries,total_events:total_events,total_revenue:total_revenue});
+        return res.json({status:true, data:{total_registered:total_registered, total_entries: total_entries,total_events:total_events,total_revenue:total_revenue},
+        events: events 
+        });
     }
 }
   };

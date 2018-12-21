@@ -11,6 +11,13 @@ module.exports = {
         host : 'ds135003.mlab.com',
         port : 35003,
         database : 'spectrum'
+    },   
+     nodemailer:{
+        service: 'gmail',
+        auth: {
+            user: 'ieee@adit.ac.in',
+            pass: 'Shreejieee'
+        }
     },
     /* do not change this salrounds value */
     bycryptSalt : 13

@@ -11,7 +11,7 @@ module.exports = {
         // if(events.length===0){
         //     res.json({status: true});
         // }else{
-            return res.json({status:true,userdata:user,name : req.user.firstname+" "+req.user.lastname, events_completed: 1});
+            return res.json({status:true,userdata:user,name : req.user.firstname+" "+req.user.lastname, events_completed: 0});
         // }   
     }
   };

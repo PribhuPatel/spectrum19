@@ -55,7 +55,8 @@ var UserSchema = new Schema({
     available_entries: {type: Number, required: true},
     description: {type: String},
     img: {type: String},
-    rounds: {
+    rounds:
+     {
       round1: {type:String},
       round2: {type:String},
       round3: {type:String}, 

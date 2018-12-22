@@ -56,7 +56,7 @@ app.use('/auth',require('./app/controllers/auth'));
 //app.use('/registration',verifyToken,require('./app/controllers/registration'));
 app.use('/registration',verifyToken,require('./app/controllers/registration'));
 app.use('/user',verifyToken,require('./app/controllers/user'));
-app.use('/analytics',verifyToken,require('./app/controllers/analytics'));
+app.use('/analytics',require('./app/controllers/analytics'));
 app.use('/application',require('./app/controllers/application'));
 //app.use('/department',require('./app/controllers/registration/department'));
 //app.use('/users',require('./app/controllers/re'));

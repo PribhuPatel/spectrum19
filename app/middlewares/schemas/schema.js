@@ -21,6 +21,18 @@ var UserSchema = new Schema({
     }
   });
 
+  var AdminsSchema = new Schema({
+    name: { type: String, required: true},
+    email: { type: String},
+    phone: {type: Number, index: true, required:true, unique: true},
+    password: { type: String, match: /[a-z]/ ,required: true},
+    role: {type: String, required: true},
+    created_date: { type: Date, default: Date.now },
+    last_login: {type: Date},
+    status: {type:Boolean, required:true},
+    department:{type: Schema.Types.ObjectId, ref: 'Departments'}
+  });
+
   var ParticipantSchema = new Schema({
     firstname: { type: String, required:true },
     lastname: { type: String, required: true },
@@ -71,7 +83,8 @@ var UserSchema = new Schema({
   var DepartmentSchema = new Schema({
     name:{type: String, required:true, unique:true},
     linked_department:{type: String, required:true, unique: true},
-    events: [{type: Schema.Types.ObjectId, ref: 'Events'}]
+    events: [{type: Schema.Types.ObjectId, ref: 'Events'}],
+    coordinator: [{type: Schema.Types.ObjectId, ref: 'Admins'}]
   });
   
   var EntrySchema = new Schema({
@@ -101,7 +114,8 @@ var Entries = mongoose.model('Entries', EntrySchema);
 var Colleges = mongoose.model('Colleges',CollegeSchema);
 var GlobalVars = mongoose.model('GlobalVars', GlobalVarSchema);
 var Tokens = mongoose.model('Tokens', TokenSchema);
+var Admins = mongoose.model('Admins', AdminsSchema);
 
 module.exports = {
-    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges
+    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins
 }

@@ -64,18 +64,18 @@ var UserSchema = new Schema({
     max_members: {type: Number, required: true},
     price: {type: Number, required: true},
     available_entries: {type: Number, required: true},
-    description: {type: String},
-    img: {type: String},
+    description: {type: String, default:null},
+    img: {type: String, default:null},
     rounds:
      {
-      round1: {type:String},
-      round2: {type:String},
-      round3: {type:String}, 
+      round1: {type:String, default:null},
+      round2: {type:String, default:null},
+      round3: {type:String, default:null}, 
     },
     coordinators:[{
-      name: {type:String},
-      phone: {type:Number},
-      email: {type:String}
+      name: {type:String, default:null},
+      phone: {type:Number, default:null},
+      email: {type:String, default:null}
     }],
     event_status : {type:Boolean, default:false, required:true}
   });

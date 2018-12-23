@@ -12,7 +12,9 @@ module.exports = {
         let min_members= req.body.min_members;
         let max_members= req.body.max_members;
         let price = req.body.price;
-
+        let round1 = null || req.body.round1;
+        let round2 = null || req.body.round2;
+        let round3 = null || req.body.round3;
         let event = await getSingleData(Events,{name: name});
        //console.log(olduser.length);
        //console.log(olduser);
@@ -27,7 +29,15 @@ module.exports = {
             min_members: min_members,
             max_participants: max_participants,
             price: price,
-            available_entries:max_participants
+            available_entries:max_participants,
+            description: req.body.description,
+            img: req.body.img,
+            rounds:{
+                round1: round1,
+                round2:round2,
+                round3:round3
+            },
+            coordinators: req.body.coordinators
         });
 
        await newEvent.save(async (err)=>{

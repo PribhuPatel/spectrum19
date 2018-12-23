@@ -29,7 +29,6 @@ var UserSchema = new Schema({
     role: {type: String, required: true},
     created_date: { type: Date, default: Date.now },
     last_login: {type: Date},
-    status: {type:Boolean, required:true},
     department:{type: Schema.Types.ObjectId, ref: 'Departments'}
   });
 
@@ -77,15 +76,16 @@ var UserSchema = new Schema({
       name: {type:String},
       phone: {type:Number},
       email: {type:String}
-    }]
+    }],
+    event_status : {type:Boolean, default:false, required:true}
   });
 
   var DepartmentSchema = new Schema({
     name:{type: String, required:true, unique:true},
     linked_department:{type: String, required:true, unique: true},
     events: [{type: Schema.Types.ObjectId, ref: 'Events'}],
-    student_coordinator: {type: Schema.Types.ObjectId, ref: 'Admins'},
-    faculty_coordinator:{type: Schema.Types.ObjectId, ref: 'Admins'}
+    student_coordinator: {type: Schema.Types.ObjectId, ref: 'Admins',default:null},
+    faculty_coordinator:{type: Schema.Types.ObjectId, ref: 'Admins',default:null}
   });
   
   var EntrySchema = new Schema({
@@ -93,8 +93,7 @@ var UserSchema = new Schema({
     event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
     participants: [{type: Schema.Types.ObjectId , ref:'Participants', required: true}],
     created_by: {type: Schema.Types.ObjectId, ref: 'Users',required:true},
-    payment: {type: Number, required:true},
-    status : {type:Boolean, default:false, required:true}
+    payment: {type: Number, required:true}
   });
 
   var GlobalVarSchema= new Schema({

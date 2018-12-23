@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const {verifyToken} = require('../../middlewares/verifytoken');
 
-router.use('/admin', require('./admin'));
+router.use('/admin',verifyToken, require('./admin'));
 
 router.use('/auth', require('./auth'));
 
-// router.use('/coordinator', require('./coordinator'));
+router.use('/coordinator', verifyToken,require('./coordinator'));
 
 module.exports = router;

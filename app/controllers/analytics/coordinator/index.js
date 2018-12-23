@@ -1,5 +1,5 @@
-// const router = require('express').Router();
+const router = require('express').Router();
 
-// router.post('/dashboard', require('./dashboard').dashboard);
+router.get('/dashboard', require('./dashboard').dashboard);
 
-// module.exports = router;
+module.exports = router;

@@ -1,6 +1,6 @@
 
 var {Admins} = require('../../../middlewares/schemas/schema');
-var {getSingleDataWithPopulate} = require('../../../utils/helpers/general_one_helper');
+var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 var {createToken,verifyToken} = require('../../../utils/tokenhelper.js');
 
 module.exports = {

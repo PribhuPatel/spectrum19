@@ -26,20 +26,3 @@ module.exports = {
     }
 // }
   };
-  
-
-  var runForEach = async (Participants)=>{
-        let payment = 0;
-        let participants = await getManyData(Participants,{});
-    await asyncForEach(participants,async (element)=>{
-            payment = payment + element.payment;
-    })
-    return payment;
-  }
-
-
-  async function asyncForEach(array, callback) {
-    for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array);
-    }
-  }

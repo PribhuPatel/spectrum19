@@ -6,7 +6,7 @@ var config={
         auth:
         {
         user: 'np9532788@gmail.com',
-      pass: 'asdfg@54321'
+      pass: 'mnbvcxz@987654321'
     }
 }
 

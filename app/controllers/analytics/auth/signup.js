@@ -12,7 +12,7 @@ module.exports = {
        var department;
        var department_id=null;
        console.log(olduser);
-        if(req.body.role == 'coordinator'){
+        if(req.body.role == 'student_coordinator' || req.body.role == 'student_coordinator'){
             department = await getSingleData(Departments,{linked_department:req.body.department});; 
             department_id = department._id;
         }
@@ -31,8 +31,12 @@ module.exports = {
                 res.send(err);
             }
             else{
-                if(req.body.role == 'coordinator'){
-                    department.coordinator.push(user);
+                if(req.body.role == 'student_coordinator'){
+                    department.student_coordinator=user_.id;
+                    await department.save();
+                }
+                if( req.body.role =='faculty_coordinator'){
+                    department.faculty_coordinator=user_.id;
                     await department.save();
                 }
                // console.log("Saved");

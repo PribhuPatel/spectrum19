@@ -7,17 +7,19 @@ module.exports = {
     login:  async(req, res) => {
   
         let userPhone = req.body.phone;
-        let loginuser = await getSingleDataWithPopulate(Admins,{phone:userPhone},'department','name password role department phone','linked_department name');
-       //console.log(olduser.length);
+        // let loginuser = await getSingleDataWithPopulate(Admins,{phone:userPhone},'department','name password role department phone','linked_department name');
+        let loginuser = await getSingleData(Admins,{phone:userPhone},'name password role department phone');
+       
+        //console.log(olduser.length);
       console.log(loginuser);
         if(!loginuser){
           return res.json({status:true,login:false,username: false,password:false,error:false});
         } else{
           if(loginuser.password===req.body.password){
-            if(loginuser.department==null){
-              loginuser.department= {name:'admin'};
-            }
-            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role,department: loginuser.department.name}}});
+            // if(loginuser.department==null){
+            //   loginuser.department= {name:'admin'};
+            // }
+            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role}});
             // const tokenData = await verifyToken(token);
             // console.log(tokenData);
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });

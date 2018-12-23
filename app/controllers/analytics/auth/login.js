@@ -14,6 +14,9 @@ module.exports = {
           return res.json({status:true,login:false,username: false,password:false,error:false});
         } else{
           if(loginuser.password===req.body.password){
+            if(loginuser.department==null){
+              loginuser.department= {name:'admin'};
+            }
             let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role,department: loginuser.department.name}}});
             // const tokenData = await verifyToken(token);
             // console.log(tokenData);

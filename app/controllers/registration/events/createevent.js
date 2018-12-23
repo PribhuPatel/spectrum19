@@ -15,6 +15,9 @@ module.exports = {
         let round1 = null || req.body.round1;
         let round2 = null || req.body.round2;
         let round3 = null || req.body.round3;
+        let coordinators = [] || req.body.coordinators;
+        let img = null || req.body.img;
+        let description = null || req.body.description;
         let event = await getSingleData(Events,{name: name});
        //console.log(olduser.length);
        //console.log(olduser);
@@ -30,14 +33,14 @@ module.exports = {
             max_participants: max_participants,
             price: price,
             available_entries:max_participants,
-            description: req.body.description,
-            img: req.body.img,
+            description: description,
+            img: img,
             rounds:{
                 round1: round1,
                 round2:round2,
                 round3:round3
             },
-            coordinators: req.body.coordinators
+            coordinators: coordinators
         });
 
        await newEvent.save(async (err)=>{

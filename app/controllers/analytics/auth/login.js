@@ -19,7 +19,7 @@ module.exports = {
             // if(loginuser.department==null){
             //   loginuser.department= {name:'admin'};
             // }
-            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role}});
+            let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role}}});
             // const tokenData = await verifyToken(token);
             // console.log(tokenData);
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });

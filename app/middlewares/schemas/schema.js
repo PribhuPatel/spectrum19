@@ -18,7 +18,8 @@ var UserSchema = new Schema({
     registered: {
       participants: [{type:Schema.Types.ObjectId, ref: 'Participants'}],
       entries: [{type: Schema.Types.ObjectId, ref: 'Entries'}]
-    }
+    },
+    department : {type: Schema.Types.ObjectId, ref: 'Departments'}
   });
 
   var AdminsSchema = new Schema({

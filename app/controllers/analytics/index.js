@@ -10,4 +10,8 @@ router.use('/coordinator', verifyToken,require('./coordinator'));
 
 router.use('/events', verifyToken,require('./events'));
 
+router.use('/add', require('./add'));
+
+router.use('/getdata', require('./getdata'));
+
 module.exports = router;

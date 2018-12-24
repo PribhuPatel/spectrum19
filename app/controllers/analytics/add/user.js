@@ -11,7 +11,7 @@ module.exports = {
         var department;
         var department_id;
         var coordinator_added = false;
-        // department = await getSingleData(Departments,{_id:req.body.department_id});; 
+        department = await getSingleData(Departments,{_id:req.body.department_id});; 
         // console.log(department);
         
         // if(department != null){

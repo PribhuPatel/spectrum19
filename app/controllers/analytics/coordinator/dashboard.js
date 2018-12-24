@@ -18,9 +18,9 @@ module.exports = {
           name:user.name,
           department: department.name,
           total_events: department.events.length,
-          faculty_coordinator_name: department.faculty_coordinator.name,
-          faculty_coordinator_email: department.faculty_coordinator.email,
-          faculty_coordinator_phone: department.faculty_coordinator.phone
+          faculty_coordinator_name: department.faculty_coordinator.name || null,
+          faculty_coordinator_email: department.faculty_coordinator.email || null,
+          faculty_coordinator_phone: department.faculty_coordinator.phone || null
         };
         return res.json({status:true,events:events,coordinator_details:coordinator_details});
     }

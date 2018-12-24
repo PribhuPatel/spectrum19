@@ -13,14 +13,23 @@ module.exports = {
         // return res.json({status:true, data:{total_registered:total_registered, total_entries: total_entries,total_events:total_events,total_revenue:total_revenue}
         // events: events 
         // });
+        var faculty_coordinator_name = null;
+        var faculty_coordinator_email = null;
+        var faculty_coordinator_phone = null;
+
+        if(department.faculty_coordinator !=null){
+            faculty_coordinator_name = department.faculty_coordinator.name;
+            faculty_coordinator_email = department.faculty_coordinator.email;
+            faculty_coordinator_phone = department.faculty_coordinator.phone;  
+        }
         let events = department.events;
         let coordinator_details = {
           name:user.name,
           department: department.name,
           total_events: department.events.length,
-          faculty_coordinator_name: department.faculty_coordinator.name || null,
-          faculty_coordinator_email: department.faculty_coordinator.email || null,
-          faculty_coordinator_phone: department.faculty_coordinator.phone || null
+          faculty_coordinator_name: faculty_coordinator.name,
+          faculty_coordinator_email: faculty_coordinator.email,
+          faculty_coordinator_phone: faculty_coordinator_phone
         };
         return res.json({status:true,events:events,coordinator_details:coordinator_details});
     }

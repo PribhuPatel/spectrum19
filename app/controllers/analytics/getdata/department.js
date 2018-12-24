@@ -30,10 +30,10 @@ module.exports = {
     },
     getDepartments: async(req,res)=>{
         
-        let name = req.body.name;
-        let id = req.body.eventid;
+        // let name = req.body.name;
+        // let id = req.body.eventid;
 
-        let department = await getManyData(Departments,{});
+        let department = await getManyData(Departments,{},'linked_department');
     // if(department===null){
     //     res.send("No Department Found");
     // }else{

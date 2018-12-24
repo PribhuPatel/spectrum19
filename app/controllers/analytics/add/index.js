@@ -9,4 +9,6 @@ router.post('/adddepartment', require('./department').addDepartment);
 
 router.post('/addcollege', require('./college').addCollege);
 
+router.post('/addEvent', require('./event').addEvent);
+
 module.exports = router;

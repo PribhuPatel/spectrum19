@@ -9,7 +9,7 @@ module.exports = {
         // let name = req.body.name;
         // let id = req.body.eventid;
 
-        let department = await getManyData(Departments,{});
+        let department = await getManyData(Departments,{},'linked_department');
         let college = await getManyData(Colleges,{},'name city');
        //console.log(olduser.length);
        //console.log(olduser);

@@ -19,7 +19,8 @@ var UserSchema = new Schema({
       participants: [{type:Schema.Types.ObjectId, ref: 'Participants'}],
       entries: [{type: Schema.Types.ObjectId, ref: 'Entries'}]
     },
-    department : {type: Schema.Types.ObjectId, ref: 'Departments'}
+    department : {type: Schema.Types.ObjectId, ref: 'Departments'},
+    college : {type:Schema.Types.ObjectId, required:true, ref: 'Colleges'}
   });
 
   var AdminsSchema = new Schema({
@@ -30,7 +31,8 @@ var UserSchema = new Schema({
     role: {type: String, required: true},
     created_date: { type: Date, default: Date.now },
     last_login: {type: Date},
-    department:{type: Schema.Types.ObjectId, ref: 'Departments'}
+    department:{type: Schema.Types.ObjectId, ref: 'Departments'},
+    college : {type:Schema.Types.ObjectId, required:true, ref: 'Colleges'}
   });
 
   var ParticipantSchema = new Schema({

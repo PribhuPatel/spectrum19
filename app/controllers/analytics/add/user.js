@@ -11,11 +11,11 @@ module.exports = {
         var department;
         var department_id;
         var coordinator_added = false;
-        department = await getSingleData(Departments,{linked_department:req.body.department});; 
-        console.log(department);
+        // department = await getSingleData(Departments,{_id:req.body.department_id});; 
+        // console.log(department);
         
-        if(department != null){
-            department_id = department._id;
+        // if(department != null){
+            department_id = req.body.department_id;
             if(req.body.role === 'campaign'){
             olduser = await getSingleData(Users,{phone:userPhone});
         } else {
@@ -44,7 +44,8 @@ module.exports = {
                 password  : req.body.password,
                 role: req.body.role,
                 status: 1,
-                department: department_id
+                department: department_id,
+                college: req.body.college_id
             });
         } else {
         var user = new Admins({
@@ -54,7 +55,8 @@ module.exports = {
             role: req.body.role,
             status: 1,
             email: req.body.email,
-            department: department_id
+            department: department_id,
+            college: req.body.college_id
         });
     }
        await user.save(async (err)=>{
@@ -78,9 +80,9 @@ module.exports = {
     }else{
         return res.json({status: true, userAdded: false, error: false, alreadyAdded: true,coordinator_added:coordinator_added});
     }
-} else{
-    return res.json({status: true, userAdded: false, error: true, alreadyAdded: false,coordinator_added:coordinator_added});
-}
+// } else{
+//     return res.json({status: true, userAdded: false, error: true, alreadyAdded: false,coordinator_added:coordinator_added});
+// }
 //   console.log(req.body.email);
 //   console.log(req.body.password);
      // res.json({ status: true });

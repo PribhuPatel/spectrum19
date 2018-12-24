@@ -74,7 +74,7 @@ module.exports = {
                     await department.save();
                 }
                // console.log("Saved");
-            return res.json({status: true, userAdded: true, error: false, alreadyAdded: true,coordinator_added:coordinator_added});
+            return res.json({status: true, userAdded: true, error: false, alreadyAdded: false,coordinator_added:coordinator_added});
             }
         });
     }else{

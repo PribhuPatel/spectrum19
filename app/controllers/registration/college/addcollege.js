@@ -21,15 +21,15 @@ module.exports = {
        await newCollege.save((err)=>{
             if(err) {
               //  console.log(err);
-                res.send(err);
+              return res.json({status: true, collegeAdded: false, alreadyAdded: false,error:true});
             }
             else{
                // console.log("Saved");
-            res.json({status: true, collegeAdded: true});
+            return res.json({status: true, collegeAdded: true, alreadyAdded: false,error:false});
             }
         });
     }else{
-        res.json({status:true,collegeAdded:false, alreadyInserted: true});
+        return res.json({status:true,collegeAdded:false, alreadyAdded: true,error:false});
     }
 //   console.log(req.body.email);
 //   console.log(req.body.password);

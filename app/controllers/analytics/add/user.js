@@ -19,12 +19,19 @@ module.exports = {
             if(req.body.role === 'campaign'){
             olduser = await getSingleData(Users,{phone:userPhone});
         } else {
-            if(req.body.role === 'faculty_coordinator' || req.body.role === 'student_coordinator'){
-                olduser = await getSingleData(Admins,{$or :[{phone:userPhone},{department:department_id}]});
+            if(req.body.role === 'faculty_coordinator'){
+                olduser = await getSingleData(Admins,{$or :[{phone:userPhone},{department:department_id},{role:'faculty_coordinator'}]});
                 if(olduser!=null){
-                coordinator_added = true;
-                }
-            } else{
+                    coordinator_added = true;
+                    }
+            } 
+            else if(req.body.role === 'student_coordinator'){
+                olduser = await getSingleData(Admins,{$or :[{phone:userPhone},{department:department_id},{role:'student_coordinator'}]});
+                if(olduser!=null){
+                    coordinator_added = true;
+                    }
+            }
+             else{
             olduser = await getSingleData(Admins,{phone:userPhone});
             }
         }

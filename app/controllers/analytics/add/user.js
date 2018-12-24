@@ -62,7 +62,7 @@ module.exports = {
        await user.save(async (err)=>{
             if(err) {
               //  console.log(err);
-                res.send(err);
+              return res.json({status: true, userAdded: false, error: true, alreadyAdded: fasle,coordinator_added:coordinator_added});
             }
             else{
                 if(req.body.role == 'student_coordinator'){
@@ -74,7 +74,7 @@ module.exports = {
                     await department.save();
                 }
                // console.log("Saved");
-            res.json({status: true, userAdded: true, error: false, alreadyAdded: true,coordinator_added:coordinator_added});
+            return res.json({status: true, userAdded: true, error: false, alreadyAdded: true,coordinator_added:coordinator_added});
             }
         });
     }else{

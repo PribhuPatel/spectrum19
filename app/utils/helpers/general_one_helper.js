@@ -49,5 +49,19 @@ module.exports = {
                 (err ? reject(err) : resolve(result))
             })
         })
-    }
+    },
+    getDateWiseCount: async (Collection,query,timestamp_variable)=>{
+        return new Promise((resolve, reject) =>{
+         Collection.aggregate([{
+            $match:query
+        },
+            { $group : { 
+                 _id : { year: { $year : timestamp_variable }, month: { $month : timestamp_variable },day: { $dayOfMonth : timestamp_variable }}, 
+                 count : { $sum : 1 }}
+                 }], 
+            function (err, res){
+            (err ? reject(err) : resolve(res));
+            }
+        )})
+        }
 }

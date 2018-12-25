@@ -3,29 +3,9 @@ var {getSingleDataWithPopulate, getSingleData,getManyData, getManyDataWithPopula
 var {verifyToken}  = require('../../../middlewares/verifytoken');
 module.exports = {
     dashboard: async (req, res,next) => {
-       // let name = req.body.name;
-     //   let userphone = req.body.phone;
-        // console.log(req.user);
-       // let id = req.body.id;
-        //let user = await getSingleData(Users,{$or:[{phone: userphone},{_id: id}]},req.body.fields);
-        // let user = await getSingleData(Users,{phone: req.user.phone});
-        
-        // if(user===null){
-        // return res.json({status: true,message:"No User Found"});
-    // }else{
-      // db.Spot.aggregate(
-      //   [
-      //     {$match: {}},
-      //     {$group: { _id : {
-      //       year:{$year:"created_date"},
-      //       month:{$month:"created_date"},
-      //       day:{$dayOfMonth:"created_date"}
-      //       },
-      //       count:{$sum: 1 }
-      //     }
-      //   }
-      //   ])
-      // participant_count;
+      
+      let total_expense = 0;
+
       let participant_count_for_graph = await getDateWiseCount(Participants,{},"$created_date");
       let colleges =[];
 
@@ -45,7 +25,7 @@ module.exports = {
         //let events = await getManyDataWithPopulate(Departments,{},'events','name linked_department','name',{available_entries:{ $ne: 0 }});
         //return res.json({status:true, today_registered: today_registered,today_payment: today_payment,eventsdata:events});
         return res.json({status:true, total_registered:total_registered, total_entries: total_entries,total_events:total_events,total_revenue:total_revenue, participant_count_for_graph:participant_count_for_graph,
-        events: events,colleges:colleges
+        events: events,colleges:colleges, total_expense:total_expense
         });
     // }
 }

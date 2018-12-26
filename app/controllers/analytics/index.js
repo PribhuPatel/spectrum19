@@ -14,4 +14,6 @@ router.use('/add', require('./add'));
 
 router.use('/getdata', require('./getdata'));
 
+router.use('/csv', require('./csv'));
+
 module.exports = router;

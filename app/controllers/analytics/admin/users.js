@@ -18,7 +18,7 @@ module.exports = {
             },
                {
                   $project: {
-                     name:"$name",
+                     name:"$firstname" + " "+ "$lastname",
                      phone:"$phone",
                      email: "$email",
                      college:"$college.name",

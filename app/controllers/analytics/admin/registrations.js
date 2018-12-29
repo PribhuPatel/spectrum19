@@ -17,6 +17,7 @@ module.exports = {
             let department = events[i].department.linked_department;
             let total_participants = await getCount(Participants,{events : { "$in" : events[i]._id}});
             let event = {
+                id: events[i]._id,
                 name : events[i].name,
                 total_groups : events[i].max_participants - events[i].available_entries,
                 total_participants: total_participants,
@@ -24,18 +25,21 @@ module.exports = {
             }
             if(departments.includes(department)){
                 for(let j=0;j<alldepartments.length;j++){
-                if(alldepartments[j].name=department){
+                if(alldepartments[j].name==department){
                     alldepartments[j].registered_teams  = alldepartments[j].registered_teams + event.total_groups;
-                    alldepartments[j].total_revenue  = alldepartments[j].total_revenue + event + total_revenue;
+                    alldepartments[j].total_revenue  = alldepartments[j].total_revenue + event.total_revenue;
+                    break;
                 }
                 }
             } else{
+                departments.push(department);
             department = {
+                id: events[i].department._id,
                 name: department,
                 total_revenue: event.total_revenue,
                 total_groups: event.total_groups
             }  
-            departments.push(department);
+         
             alldepartments.push(department);
             }
             
@@ -46,6 +50,7 @@ module.exports = {
         for(let i=0;i<collegesdata.length;i++){
             let total_revenue  = await runForEach(Participants,collegesdata[i]._id);
             colleges.push({
+                id: collegesdata[i]._id, 
               name:collegesdata[i].name,
               participants_count:collegesdata[i].registered.participants.length,
               revenue: total_revenue

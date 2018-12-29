@@ -47,15 +47,31 @@ module.exports = {
         }
         var colleges = [];
         let collegesdata= await getManyData(Colleges,{},'name registered');
+        // for(let i=0;i<collegesdata.length;i++){
+        //     let total_revenue  = await runForEach(Participants,collegesdata[i]._id);
+        //     colleges.push({
+        //         id: collegesdata[i]._id, 
+        //       name:collegesdata[i].name,
+        //       participants_count:collegesdata[i].registered.participants.length,
+        //       revenue: total_revenue
+        //     });
+        // }
+        // let participants = await getManyData(Participants,{college:college_id});
         for(let i=0;i<collegesdata.length;i++){
-            let total_revenue  = await runForEach(Participants,collegesdata[i]._id);
-            colleges.push({
+            // let participants = await getManyData(Participants,{college:collegesdata[i]._id});
+            let total_revenue=await Participants.aggregate([
+                { $match: { college: collegesdata[i]._id}  },
+                { $group: { _id: null,amount: { $sum: "$payment" } } }
+            ]).exec();
+            console.log(total_revenue);
+            colleges.push( {
                 id: collegesdata[i]._id, 
-              name:collegesdata[i].name,
-              participants_count:collegesdata[i].registered.participants.length,
-              revenue: total_revenue
-            });
+                      name:collegesdata[i].name,
+                      participants_count:collegesdata[i].registered.participants.length,
+                      revenue: total_revenue[0].amount
+            })
         }
+
         console.log(alldepartments);
         console.log(allevents);
         console.log(colleges);

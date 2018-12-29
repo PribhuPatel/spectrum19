@@ -41,9 +41,20 @@ module.exports = {
             
             allevents.push(event);
         }
+        var colleges = [];
+        let collegesdata= await getManyData(Colleges,{},'name registered');
+        for(let i=0;i<collegesdata.length;i++){
+            let total_revenue  = await runForEach(Participants,collegesdata[i]._id);
+            colleges.push({
+              name:collegesdata[i].name,
+              participants_count:collegesdata[i].registered.participants.length,
+              revenue: total_revenue
+            });
+        }
         console.log(alldepartments);
         console.log(allevents);
-        return res.json({status:true,allevents:allevents,alldepartments:alldepartments});
+        console.log(colleges);
+        return res.json({status:true,allevents:allevents,alldepartments:alldepartments,colleges:colleges});
 
         // let total_registered = await getCount(Participants,{});
         // let total_entries = await getCount(Entries,{});
@@ -68,9 +79,9 @@ module.exports = {
   };
   
 
-  var runForEach = async (Participants)=>{
+  var runForEach = async (Participants,college_id)=>{
         let payment = 0;
-        let participants = await getManyData(Participants,{});
+        let participants = await getManyData(Participants,{college:college_id});
     await asyncForEach(participants,async (element)=>{
             payment = payment + element.payment;
     })

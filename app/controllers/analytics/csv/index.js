@@ -5,6 +5,6 @@ const router = require('express').Router();
 
 router.get('/allparticipants',require('./csvgenerators').getParticipants);
 
-router.post('/byevent',require('./csvgenerators').getByEvent);
+// router.post('/byevent',require('./csvgenerators').getByEvent);
 
 module.exports = router;

@@ -110,6 +110,12 @@ var UserSchema = new Schema({
     created_time: {type: Date, default: Date.now}
   });
 
+  var ScheduleSchema = new Schema({
+    start_time: {type:Date},
+    end_time:{type:Date}
+  });
+
+// var Schdule =
 var Participants =  mongoose.model('Participants', ParticipantSchema);
 var Users =  mongoose.model('Users', UserSchema);
 var Events = mongoose.model('Events', EventsSchema);

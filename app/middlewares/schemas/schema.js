@@ -112,7 +112,8 @@ var UserSchema = new Schema({
 
   var ScheduleSchema = new Schema({
     start_time: {type:Date},
-    end_time:{type:Date}
+    end_time:{type:Date},
+    date:{type:Date}
   });
 
 // var Schdule =

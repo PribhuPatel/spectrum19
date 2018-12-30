@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
   
 
-
+process.env.PORTAL_STATUS=true;
   //app.use(require('flash')());
 //app.use(ejs);
 // app.get('/',(req,res)=>{

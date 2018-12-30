@@ -12,4 +12,6 @@ router.get('/revenue', require('./revenue').revenue);
 
 router.post('/getdepartmentdata', require('./getdepartmentdata').getDepartmentData);
 
+router.post('/getcollegedata', require('./getcollegewisedata').getCollegeWiseData);
+
 module.exports = router;

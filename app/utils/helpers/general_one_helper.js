@@ -58,7 +58,8 @@ module.exports = {
             { $group : { 
                  _id : { year: { $year : timestamp_variable }, month: { $month : timestamp_variable },day: { $dayOfMonth : timestamp_variable }}, 
                  count : { $sum : 1 }}
-                 }], 
+                 },
+                 {$sort: {_id: 1}}],
             function (err, res){
             (err ? reject(err) : resolve(res));
             }

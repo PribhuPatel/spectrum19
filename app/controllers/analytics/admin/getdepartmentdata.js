@@ -20,13 +20,18 @@ module.exports = {
                 { $match: { events : { "$in" : [events[i]._id]}}  },
                 { $group: { _id: null,count : { $sum : 1 }} }
             ]).exec();
+
+            let count=0;
             console.log(event_Data);
+            if(event_Data.length != 0){
+                count = event_Data[0].count;
+            }
             allEvents.push({
                 id: events[i]._id,
                 name: events[i].name,
-                registered_participants: event_Data[0].count,
+                registered_participants: count,
                 registered_groups: events[i].max_participants - events[i].available_entries,
-                revenue: event_Data[0].count * events[i].price
+                revenue: count * events[i].price
             });
             // allEvents.push()
         }

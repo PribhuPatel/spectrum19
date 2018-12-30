@@ -24,6 +24,9 @@ app.use(cookieParser());
   
 
 process.env.PORTAL_STATUS=true;
+console.log(process.env.PORTAL_STATUS);
+process.env.PORTAL_STATUS=false;
+console.log(process.env.PORTAL_STATUS);
   //app.use(require('flash')());
 //app.use(ejs);
 // app.get('/',(req,res)=>{

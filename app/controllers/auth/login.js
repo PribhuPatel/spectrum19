@@ -7,11 +7,12 @@ module.exports = {
     login:  async(req, res) => {
   
         let userPhone = req.body.phone;
+        if(process.env.PORTAL_STATUS){
         let loginuser = await getSingleData(Users,{phone:userPhone});
        //console.log(olduser.length);
       console.log(loginuser);
         if(!loginuser){
-          return res.json({status:true,login:false,username: false,password:false,error:false});
+          return res.json({status:true,login:false,username: false,password:false,error:false,portal_status:process.env.PORTAL_STATUS});
         } else{
           if(loginuser.password===req.body.password){
             let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role}}});
@@ -22,12 +23,15 @@ module.exports = {
         //   console
       //  res.append('Set-Cookie', 'access-token=' + token + ';');
             //return res.cookie('accesstoken',token,{ maxAge: 365 * 24 * 60 * 60 * 1000}).json({status:true,login:true ,username:true,password:true,error:false});
-            return res.json({status:true,login:true ,username:true,password:true,error:false, token: token, name: loginuser.name,role: loginuser.role});
+            return res.json({status:true,login:true ,username:true,password:true,error:false, token: token, name: loginuser.name,role: loginuser.role,portal_status:process.env.PORTAL_STATUS});
           } else{
-            return res.json({status:true,login:false,username: true,password:false,error:false});
+            return res.json({status:true,login:false,username: true,password:false,error:false,portal_status:process.env.PORTAL_STATUS});
           }
           
         }
+      } else {
+        return res.json({status:true,login:false,username: false,password:false,error:false,portal_status:process.env.PORTAL_STATUS});
+      }
       //  res.json(loginuser);
  // console.log(req.body.email);
  // console.log(req.body.password);

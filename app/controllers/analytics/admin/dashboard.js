@@ -27,7 +27,7 @@ module.exports = {
         //let events = await getManyDataWithPopulate(Departments,{},'events','name linked_department','name',{available_entries:{ $ne: 0 }});
         //return res.json({status:true, today_registered: today_registered,today_payment: today_payment,eventsdata:events});
         return res.json({status:true, total_registered:total_registered, total_entries: total_entries,total_events:total_events,total_revenue:total_revenue, participant_count_for_graph:participant_count_for_graph,
-        events: events,colleges:colleges, total_expense:total_expense, registration_portal_status: true,portal_status:check.value
+        events: events,colleges:colleges, total_expense:total_expense, registration_portal_status: check.value
         });
     // }
 }

@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 const express = require('express');
 const ejs = require('ejs');
 const app = express();
@@ -23,10 +23,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
   
 
-process.env.PORTAL_STATUS=true;
-console.log(process.env.PORTAL_STATUS);
-process.env.PORTAL_STATUS=false;
-console.log(process.env.PORTAL_STATUS);
   //app.use(require('flash')());
 //app.use(ejs);
 // app.get('/',(req,res)=>{

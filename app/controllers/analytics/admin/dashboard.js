@@ -1,4 +1,4 @@
-var {Users,Departments,Participants, Entries, Events, Colleges} = require('../../../middlewares/schemas/schema');
+var {Users,Departments,Participants, Entries, Events, Colleges, GlobalVars} = require('../../../middlewares/schemas/schema');
 var {getSingleDataWithPopulate, getSingleData,getManyData, getManyDataWithPopulate,getCount,getDateWiseCount} = require('../../../utils/helpers/general_one_helper');
 var {verifyToken}  = require('../../../middlewares/verifytoken');
 module.exports = {
@@ -22,11 +22,12 @@ module.exports = {
               participants_count:collegesdata[i].registered.participants.length
             });
         }
+        let check = await getSingleData(GlobalVars,{key:'portal_status'},'value');
         //let today_payment = user.today_payment;
         //let events = await getManyDataWithPopulate(Departments,{},'events','name linked_department','name',{available_entries:{ $ne: 0 }});
         //return res.json({status:true, today_registered: today_registered,today_payment: today_payment,eventsdata:events});
         return res.json({status:true, total_registered:total_registered, total_entries: total_entries,total_events:total_events,total_revenue:total_revenue, participant_count_for_graph:participant_count_for_graph,
-        events: events,colleges:colleges, total_expense:total_expense, registration_portal_status: true,portal_status:process.env.PORTAL_STATUS
+        events: events,colleges:colleges, total_expense:total_expense, registration_portal_status: true,portal_status:check.value
         });
     // }
 }

@@ -35,13 +35,13 @@ module.exports = {
         var student_coordinator_email = null;
         var student_coordinator_phone = null;
         var faculty_coordinator_name = null;
-        var faculty_coordinator_email = null;
-        var faculty_coordinator_phone = null;
+        // var faculty_coordinator_email = null;
+        // var faculty_coordinator_phone = null;
 
         if(department.faculty_coordinator !=null){
             faculty_coordinator_name = department.faculty_coordinator.name;
-            faculty_coordinator_email = department.faculty_coordinator.email;
-            faculty_coordinator_phone = department.faculty_coordinator.phone;  
+            // faculty_coordinator_email = department.faculty_coordinator.email;
+            // faculty_coordinator_phone = department.faculty_coordinator.phone;  
         }
 
         if(department.student_coordinator !=null){
@@ -54,8 +54,8 @@ module.exports = {
            nick_name:department.name,
           department_name: department.linked_department,
           faculty_coordinator_name: faculty_coordinator_name,
-          faculty_coordinator_email: faculty_coordinator_email,
-          faculty_coordinator_phone: faculty_coordinator_phone,
+        //   faculty_coordinator_email: faculty_coordinator_email,
+        //   faculty_coordinator_phone: faculty_coordinator_phone,
           student_coordinator_name : student_coordinator_name,
           student_coordinator_email : student_coordinator_email,
           student_coordinator_phone : student_coordinator_phone

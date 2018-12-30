@@ -113,10 +113,19 @@ var UserSchema = new Schema({
   var ScheduleSchema = new Schema({
     start_time: {type:Date},
     end_time:{type:Date},
-    date:{type:Date}
+    day:{type:Number},
+    event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
+    round:{type:Number},
   });
 
-// var Schdule =
+  var RevenueSchema = new Schema({
+    date: {type:Date,default: Date.now},
+    revenue: {type:Number},
+    expense:{type:Number}
+  });
+
+var Revenue = mongoose.model('Revenue',RevenueSchema);
+var Schedules = mongoose.model('Schedules',ScheduleSchema);
 var Participants =  mongoose.model('Participants', ParticipantSchema);
 var Users =  mongoose.model('Users', UserSchema);
 var Events = mongoose.model('Events', EventsSchema);
@@ -128,5 +137,5 @@ var Tokens = mongoose.model('Tokens', TokenSchema);
 var Admins = mongoose.model('Admins', AdminsSchema);
 
 module.exports = {
-    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins
+    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins, Schedules,Revenue
 }

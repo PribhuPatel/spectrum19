@@ -11,14 +11,14 @@ module.exports = {
         if(check.value == 'true'){
         let loginuser = await getSingleData(Users,{phone:userPhone});
        //console.log(olduser.length);
-      console.log(loginuser);
+      // console.log(loginuser);
         if(!loginuser){
           return res.json({status:true,login:false,username: false,password:false,error:false,portal_status:check.value});
         } else{
           if(loginuser.password===req.body.password){
             let token = await createToken({data: {user:{name:loginuser.name, phone: loginuser.phone, role: loginuser.role}}});
             const tokenData = await verifyToken(token);
-            console.log(tokenData);
+            // console.log(tokenData);
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });
            // res.send("sada");
         //   console

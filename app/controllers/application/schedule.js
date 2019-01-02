@@ -44,9 +44,9 @@ module.exports = {
                         }
                         // console.log(eventSchedule[key]);
                     let event ={
-                        time: eventSchedule[key].start_time.split(" ")[1],
-                        venue: eventSchedule[key].venue,
-                        description: user.events[i].name + " " + rou
+                        time: eventSchedule[key].start_time.split(" ")[1].split(":")[0] +":" +eventSchedule[key].start_time.split(" ")[1].split(":")[1],
+                        description: eventSchedule[key].venue,
+                        title: user.events[i].name + " " + rou
                 }
                 if(eventSchedule[key].start_time.split(" ")[0]==day1date.value){
                     day1.push(event);

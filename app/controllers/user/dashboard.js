@@ -15,7 +15,7 @@ module.exports = {
         if(user===null){
             return res.json({status: true,message:"No User Found"});
     }else{
-        let date = new Date.now();
+        let date = Date.now();
         // date = date.no
         let today_registered = await getCount(Participants,{$and:[{createdby: user._id},{created_date: date}]});;
         let today_payment = user.today_payment;

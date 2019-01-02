@@ -1,7 +1,7 @@
 
 
 var {Participants, Users, Colleges} = require('../../../middlewares/schemas/schema');
-var {getSingleData} = require('../../../utils/helpers/general_one_helper');
+var {getSingleData,convertUTCDateToLocalDate} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
     createProfile : async (req, res) => {

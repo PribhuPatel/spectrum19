@@ -9,6 +9,7 @@ module.exports = {
         // let name = req.body.name;
         // let city = req.body.city;
         // let cvm = req.body.cvm;
+        console.log(req.body);
         let schedule = await getSingleData(Schedules,{event:req.body.event_id});
        //console.log(olduser.length);
        //console.log(olduser);

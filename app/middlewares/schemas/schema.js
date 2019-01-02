@@ -111,11 +111,12 @@ var UserSchema = new Schema({
   });
 
   var ScheduleSchema = new Schema({
-    start_time: {type:Date},
-    end_time:{type:Date},
+    start_time: {type:String},
+    end_time:{type:String},
     day:{type:Number},
     event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
     round:{type:Number},
+    venue:{type:String}
   });
 
   var RevenueSchema = new Schema({

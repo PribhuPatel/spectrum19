@@ -112,18 +112,18 @@ var UserSchema = new Schema({
 
   var ScheduleSchema = new Schema({
     round1:{
-      start_time: {type:Date},
-      end_time:{type:Date},
+      start_time: {type:String},
+      end_time:{type:String},
       venue:{type:String}
     },
     round2:{
-      start_time: {type:Date},
-      end_time:{type:Date},
+      start_time: {type:String},
+      end_time:{type:String},
       venue:{type:String}
     },
     round3:{
-      start_time: {type:Date},
-      end_time:{type:Date},
+      start_time: {type:String},
+      end_time:{type:String},
       venue:{type:String}
     },
     event:{type:Schema.Types.ObjectId, ref: 'Events', required: true}

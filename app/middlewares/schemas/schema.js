@@ -8,7 +8,7 @@ var UserSchema = new Schema({
     phone: {type: Number, index: true, required:true, unique: true},
     password: { type: String, match: /[a-z]/ ,required: true},
     role: {type: String, required: true},
-    created_date: { type: Date, default: convertUTCDateToLocalDate(new Date()) },
+    created_date: { type: Date, default: convertUTCDateToLocalDate(Date.now()) },
     last_login: {type: Date},
     today_payment: {type: Number, required: true, default: 0 },
     status: {type:Boolean, required:true},

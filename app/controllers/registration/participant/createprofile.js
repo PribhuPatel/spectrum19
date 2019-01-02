@@ -21,7 +21,8 @@ module.exports = {
             email: req.body.email,
             phone: req.body.phone,
             createby: user._id,
-            college: college._id
+            college: college._id,
+            created_date:convertUTCDateToLocalDate(new Date() )
         });
         //let a= 10;
        await newParticipant.save(async (err)=>{

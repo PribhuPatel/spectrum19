@@ -15,7 +15,7 @@ module.exports = {
        //console.log(olduser);
     if(schedule===null){
         var newSchedule = new Schedules({
-            event: event_id,
+            event: req.body.event_id,
             round1: req.body.round1,
             round2: req.body.round2,
             round3: req.body.round3

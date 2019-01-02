@@ -7,6 +7,8 @@ router.get('/myevents',verifyToken,require('./myevents').getEvents);
 
 router.get('/allevents',verifyToken,require('./allevents').getEvents);
 
+router.get('/schedule',verifyToken,require('./schedule').getSchedule);
+
 // router.use('/event', require('./events'));
 
 // router.use('/evententry', require('./evententry'));

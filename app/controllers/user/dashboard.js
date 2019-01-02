@@ -1,7 +1,7 @@
 
 
 var {Users,Departments} = require('../../middlewares/schemas/schema');
-var {getSingleDataWithPopulate, getSingleData,getManyData, getManyDataWithPopulate} = require('../../utils/helpers/general_one_helper');
+var {getSingleDataWithPopulate, getSingleData,getManyData, getManyDataWithPopulate, getCount} = require('../../utils/helpers/general_one_helper');
 var {verifyToken}  = require('../../middlewares/verifytoken');
 module.exports = {
     dashboard: async (req, res,next) => {
@@ -15,7 +15,7 @@ module.exports = {
         if(user===null){
             return res.json({status: true,message:"No User Found"});
     }else{
-        let today_registered = user.registered.participants.length;
+        let today_registered = await getCount({$and:[{createdby: user._id},{created_date:Date.now + 5.5}]});;
         let today_payment = user.today_payment;
         let events = await getManyDataWithPopulate(Departments,{},'events','name linked_department','name',{available_entries:{ $ne: 0 }});
         return res.json({status:true, today_registered: today_registered,today_payment: today_payment,eventsdata:events});

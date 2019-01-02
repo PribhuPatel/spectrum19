@@ -7,7 +7,7 @@ var UserSchema = new Schema({
     phone: {type: Number, index: true, required:true, unique: true},
     password: { type: String, match: /[a-z]/ ,required: true},
     role: {type: String, required: true},
-    created_date: { type: Date, default: Date.now },
+    created_date: { type: Date, default: Date.now +5.5},
     last_login: {type: Date},
     today_payment: {type: Number, required: true, default: 0 },
     status: {type:Boolean, required:true},
@@ -29,7 +29,7 @@ var UserSchema = new Schema({
     phone: {type: Number, index: true, required:true, unique: true},
     password: { type: String, match: /[a-z]/ ,required: true},
     role: {type: String, required: true},
-    created_date: { type: Date, default: Date.now },
+    created_date: { type: Date, default: Date.now + 5.5},
     last_login: {type: Date},
     department:{type: Schema.Types.ObjectId, ref: 'Departments'},
     college : {type:Schema.Types.ObjectId, required:true, ref: 'Colleges'}
@@ -44,7 +44,7 @@ var UserSchema = new Schema({
     cvm:{type: Boolean, required: true},
     payment: {type: Number, required: true, default: 30},
     createby: { type: Schema.Types.ObjectId,ref: 'Users',required: true},
-    created_date: { type: Date, default: Date.now },
+    created_date: { type: Date, default: Date.now +5.5 },
     events: [{type: Schema.Types.ObjectId, ref: 'Events'}],
     password: {type:String}
   });
@@ -107,7 +107,7 @@ var UserSchema = new Schema({
   var TokenSchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'Users', required: true},
     token:{type: String, required: true},
-    created_time: {type: Date, default: Date.now}
+    created_time: {type: Date, default: Date.now + 5.5}
   });
 
   var ScheduleSchema = new Schema({
@@ -131,7 +131,7 @@ var UserSchema = new Schema({
   });
 
   var RevenueSchema = new Schema({
-    date: {type:Date,default: Date.now},
+    date: {type:Date,default: Date.now+5.5},
     revenue: {type:Number},
     expense:{type:Number}
   });

@@ -1,7 +1,7 @@
 
 
 var {Departments, Colleges,Participants, Entries} = require('../../../middlewares/schemas/schema');
-var {getManyDataWithPopulate} = require('../../../utils/helpers/general_one_helper');
+var {getManyDataWithPopulate, getSingleData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
     getParticipants: async (req, res) => {
@@ -36,21 +36,24 @@ module.exports = {
                         return res.json(source);
                         }
     },
-    getByEvents: async (req,res)=>{
+    getByEvent: async (req,res)=>{
         var source = [];
-        var groups = await getManyDataWithPopulate(Entries,{event : req.body.event_id},'participants','participants','firstname lastname email phone college');
+        var groups = await getManyDataWithPopulate(Entries,{event : req.body.event_id},'participants','participants college','firstname lastname email phone college name');
         if(groups.length != 0 ){
+            // console.log(groups[0].participants);
             for(var i = 0; i < groups.length; i++) {
                                     // console.log(participants)
                                     //console.log(participants[i]);
-                                    for(let j=0;j<groups.participants.length;j++){
-                                    
+                                    console.log(groups[i].participants.length);
+                                    for(let j=0;j<groups[i].participants.length;j++){
+                                    let participant = groups[i].participants[j];
+                                    let college = await getSingleData(Colleges,{_id:participant.college},'name');
                                     source.push({
-                                        "firstname":participants[i].firstname, 
-                                        "lastname":participants[i].lastname, 
-                                        "email":participants[i].email, 
-                                        "phone":participants[i].phone,
-                                        "college": participants[i].college.name
+                                        "firstname":participant.firstname, 
+                                        "lastname":participant.lastname, 
+                                        "email":participant.email, 
+                                        "phone":participant.phone,
+                                        "college": college.name
                                     })
                                 }
                                 source.push({

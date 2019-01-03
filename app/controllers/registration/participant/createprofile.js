@@ -13,6 +13,11 @@ module.exports = {
 
        //console.log(olduser.length);
        //console.log(olduser);
+       let date = new Date();
+       console.log(date);
+       date = convertUTCDateToLocalDate(date);
+       console.log(date);
+       
     if(participant===null){
         var newParticipant = new Participants({
             firstname: req.body.firstname,

@@ -45,6 +45,17 @@ module.exports = {
     //    console.log();
     //   console.log(partifull);
 
+    let date = new Date();
+    // console.log(date+5.5);
+    // date = date+5.5;
+    
+    // let da1 =date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1); 
+    
+    // console.log();
+    date = convertUTCDateToLocalDate(date);
+ //    let da = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +date.getDate() ;
+    console.log(date);
+
         let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
        //console.log(olduser.length);
        //console.log();
@@ -57,7 +68,8 @@ module.exports = {
             team_leader: team_leader._id,
             event: event._id,
             participants: participants,
-            payment: payment
+            payment: payment,
+            created_date:date
         });
 
        await newEntry.save(async (err)=>{

@@ -13,10 +13,21 @@ module.exports = {
 
        //console.log(olduser.length);
        //console.log(olduser);
+    //    let date = new Date();
+    //    console.log(date);
+    //    date = convertUTCDateToLocalDate(date);
+    //    console.log(date);
        let date = new Date();
-       console.log(date);
+       // console.log(date+5.5);
+       // date = date+5.5;
+       
+       // let da1 =date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1); 
+       
+       // console.log();
        date = convertUTCDateToLocalDate(date);
+    //    let da = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +date.getDate() ;
        console.log(date);
+    //    da = new Date(da + ' 00:00:00');
        
     if(participant===null){
         var newParticipant = new Participants({
@@ -27,7 +38,7 @@ module.exports = {
             phone: req.body.phone,
             createby: user._id,
             college: college._id,
-            created_date:convertUTCDateToLocalDate(new Date() )
+            created_date:date
         });
         //let a= 10;
        await newParticipant.save(async (err)=>{

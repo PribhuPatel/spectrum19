@@ -20,4 +20,6 @@ router.get('/portalstatus', require('./portalstatus').getPortalStatus);
 
 router.get('/changeportalstatus', require('./portalstatus').portalStatusChange);
 
+// router.get('/cron', require('./cronjob').runCron);
+
 module.exports = router;

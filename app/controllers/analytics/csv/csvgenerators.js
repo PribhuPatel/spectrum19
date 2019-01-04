@@ -79,6 +79,49 @@ module.exports = {
                                 })
                             return res.json(source);
                             }
+    },
+    getByCollege: async (req,res)=>{
+        var source = [];
+        var participants = await getManyDataWithPopulate(Participants,{college : req.body.college_id},'events','firstname lastname email phone','name');
+        if(participants.length != 0 ){
+            // console.log(groups[0].participants);
+            for(var i = 0; i < participants.length; i++) {
+                                    // console.log(participants)
+                                    //console.log(participants[i]);
+                                    let participant = {
+                                        "firstname":participants[i].firstname, 
+                                        "lastname":participants[i].lastname, 
+                                        "email":participants[i].email, 
+                                        "phone":participants[i].phone
+                                    }
+                                    // console.log(groups[i].participants.length);
+                                    for(let j=0;j<participants[i].events.length;j++){
+                                        participant["Event"+(j+1)] = participants[i].events[j].name
+                                }
+                                source.push(participant)
+                                // source.push({
+                                //     "firstname":"", 
+                                //     "lastname":"", 
+                                //     "email":"", 
+                                //     "phone":"",
+                                //     "college": ""
+                                // })
+
+                            }
+                                console.log(source);
+                                // res.csv(source,true)
+                                return res.json(source)
+                                // callback(null, source);
+                            } else{
+                                source.push({
+                                    "firstname":"", 
+                                    "lastname":"", 
+                                    "email":"", 
+                                    "phone":"",
+                                    "college": ""
+                                })
+                            return res.json(source);
+                            }
     }
   };
   

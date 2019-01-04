@@ -13,7 +13,7 @@ var UserSchema = new Schema({
     today_payment: {type: Number, required: true, default: 0 },
     status: {type:Boolean, required:true},
     payment_history : [{
-      date: {type: Date },
+      date: {type: Date},
       payment: {type: Number}
     }],
     registered: {
@@ -45,7 +45,7 @@ var UserSchema = new Schema({
     cvm:{type: Boolean, required: true},
     payment: {type: Number, required: true, default: 30},
     createby: { type: Schema.Types.ObjectId,ref: 'Users',required: true},
-    created_date: { type: Date, default: convertUTCDateToLocalDate(new Date())  },
+    created_date: { type: Date  },
     events: [{type: Schema.Types.ObjectId, ref: 'Events'}],
     password: {type:String}
   });
@@ -97,7 +97,8 @@ var UserSchema = new Schema({
     event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
     participants: [{type: Schema.Types.ObjectId , ref:'Participants', required: true}],
     created_by: {type: Schema.Types.ObjectId, ref: 'Users',required:true},
-    payment: {type: Number, required:true}
+    payment: {type: Number, required:true},
+    created_date:{type:Date,required:true}
   });
 
   var GlobalVarSchema= new Schema({

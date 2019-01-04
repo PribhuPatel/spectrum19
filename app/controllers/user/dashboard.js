@@ -18,16 +18,29 @@ module.exports = {
         let date = new Date();
         // console.log(date+5.5);
         // date = date+5.5;
-        console.log(date);
+        
         // let da1 =date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1); 
-        let da = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +date.getDate() ;
+        
         // console.log();
-        date = convertUTCDateToLocalDate(date);
-        console.log(date.toString());
+        // date = convertUTCDateToLocalDate(date);
+        // console.log(date.getDate());
+        let da = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +date.getDate() ;
+        let da1 = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1) ;
+        console.log(date);
+        da= da.concat(' 00:00:00 UTC')
+        da1= da1.concat(' 00:00:00 UTC')
+         console.log(da);
+        da = new Date(da);
+        da1 = new Date(da1);
+        console.log(da);
+        console.log(da1);
+
+        // console.log(date.toString());
         // date.
         // date = date.no
-        let today_registered = await getCount(Participants,{created_date: { $gte: da+' 00:00:00',$lt:  (da + 1)+' 00:00:00'}});
-        // let today_registere = await getManyData(Participants,{created_date: { $gte: da+' 00:00:00',$lt:  (da + 1)+' 00:00:00'}});
+        // let today_registered = await getCount(Participants,{created_date: { $gte: da+' 00:00:00',$lt:  (da + 1)+' 00:00:00'}});
+        let today_registered = await getCount(Participants,{created_date: { $gte: da,$lt:  da1}});
+        // let today_registere = await getManyData(Participants,{created_date: { $gte: da,$lt:  (da + 1)}});
         // console.log(today_registere);
         // let today_registered = 0;
         let today_payment = user.today_payment;

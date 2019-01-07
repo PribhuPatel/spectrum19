@@ -62,7 +62,7 @@ var UserSchema = new Schema({
 
   var EventsSchema = new Schema({
     name: {type: String, required:true},
-    type:{type:String, required:true},
+    event_type:{type:String, required:true},
     department: {type: Schema.Types.ObjectId, ref: 'Departments'},
     max_participants:{type: Number, required: true},
     min_members: {type: Number, required:true},
@@ -94,12 +94,13 @@ var UserSchema = new Schema({
   });
   
   var EntrySchema = new Schema({
-    team_leader:{type: Schema.Types.ObjectId, ref:'Participats',required:true},
+    team_leader:{type: Schema.Types.ObjectId, ref:'Participants',required:true},
     event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
     participants: [{type: Schema.Types.ObjectId , ref:'Participants', required: true}],
     created_by: {type: Schema.Types.ObjectId, ref: 'Users',required:true},
     payment: {type: Number, required:true},
     created_date:{type:Date,required:true}
+    // package:{type:Schema.Types.ObjectId,ref:Packages}
   });
 
   var GlobalVarSchema= new Schema({

@@ -32,7 +32,6 @@ module.exports = {
     if(event===null){
         var newEvent = new Events({
             name: name,
-            //event_type:event_type,
             department: department._id,
             max_members:max_members,
             min_members: min_members,

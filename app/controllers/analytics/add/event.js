@@ -5,7 +5,7 @@ var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
     addEvent: async (req, res) => {
-        console.log(req.body.department_id);
+        console.log(req.body);
         let name = req.body.event_name;
         let department = await getSingleData(Departments,{_id: req.body.department_id});
         let max_participants= req.body.max_participants;

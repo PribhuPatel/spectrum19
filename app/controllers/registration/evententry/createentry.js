@@ -118,23 +118,24 @@ createEntry: async (req, res) => {
     //console.log(r);
     //var team_members = JSON.parse(req.body.team_members);
   //  console.log(team_members);
+  
+  let participants = [];
+  participants.push(participant._id);
   let college = await getSingleData(Colleges,{_id: participant.college},'registered');
-  let oldentry = await getSingleData(Entries,{$and:[{event: event._id},{participants : { "$in" : participant._id}}]});
+  let oldentry = await getSingleData(Entries,{$and:[{event: event._id},{participants : { "$in" : participants}}]});
     // let participants = [];
     // let partifull = [];
     // let parti = {};
     var leader_id = null;
-    let participants = [];
-    participants.push(participant._id);
     payment = event.price;
     if(oldentry === null){
     if(event.available_entries != 0){
         if(req.body.leader_phone){
             leader_id = await getSingleData(Participants,{phone:req.body.leader_phone});
             // let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
-            let entry = await getSingleData(Entries,{$and:[{team_leader: leader_id},{event: event._id},{participants : { "$nin" : participant._id}}]},'participants payment');
-            if(entry){
-            participant.events.push(event_id);
+            let entry = await getSingleData(Entries,{$and:[{team_leader: leader_id},{event: event._id},{participants : { "$nin" : participants}}]},'participants payment');
+            if(entry.participants.length < event.max_members){
+            participant.events.push(event._id);
             participant["payment"] = participant["payment"] + event.price;
             user["today_payment"] = user["today_payment"] + event.price; 
                     
@@ -143,9 +144,10 @@ createEntry: async (req, res) => {
             entry.save();
             user.save();
             participant.save();
+            return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false})
             }
             else{
-                return res.json({status: true, entryadded: false});
+                return res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: false,max_members:true,message:"Maximum members in team"});
             }
             // leader_id = req.body.leader_id;
 
@@ -176,15 +178,16 @@ createEntry: async (req, res) => {
                    event.save();
                     user.save();
                     participant.save();
+                    console.log(participant);
                 return res.json({status: true, entryadded: true, payment : payment});
                 }
             });
         }
     } else {
-        res.json({status: true, entryadded: false, entryFull:true});
+        return res.json({status: true, entryadded: false, entryFull:true, alreadyAdded: false,message:"Event Entry Full"});
     }
 } else {
-    res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: true});
+    return res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: true,message:"Participant already added in " +event.name + " event"});
 }
     // if(leader_id !=null)
     // participants.push(team_leader._id);

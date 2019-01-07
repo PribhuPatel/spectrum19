@@ -107,28 +107,31 @@ module.exports = {
 //      // res.json({ status: true });
 //     }
 createEntry: async (req, res) => {
-    try{
+    // try{
         let date = new Date();
     let payment = 0;
     let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');
-    var event = await getSingleData(Events,{name: req.body.intrested_event});
+    var event = await getSingleData(Events,{_id: req.body.intrested_event});
     //console.log(req.body.team_members);
     let participant = await getSingleData(Participants,{phone: req.body.participant},'_id college events payment');
     // console.log(team_leader);
     //console.log(r);
     //var team_members = JSON.parse(req.body.team_members);
   //  console.log(team_members);
-  let college = await getSingleData(Colleges,{_id: team_leader.college},'registered');
+  let college = await getSingleData(Colleges,{_id: participant.college},'registered');
+  let oldentry = await getSingleData(Entries,{$and:[{event: event._id},{participants : { "$in" : participant._id}}]});
     // let participants = [];
     // let partifull = [];
     // let parti = {};
-    // var leader_id = null;
+    var leader_id = null;
+    let participants = [];
+    participants.push(participant._id);
     payment = event.price;
-    if(event.available_entries != 0){
-        if(req.body.leader_id){
-            
+    if(oldentry === null && event.available_entries != 0){
+        if(req.body.leader_phone){
+            leader_id = await getSingleData(Participants,{phone:req.body.leader_phone});
             // let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
-            let entry = await getSingleData(Colleges,{$and:[{team_leader: req.body.leader_id},{event: event._id},{participants : { "$nin" : participant._id}}]},'participants payment');
+            let entry = await getSingleData(Entries,{$and:[{team_leader: leader_id},{event: event._id},{participants : { "$nin" : participant._id}}]},'participants payment');
             if(entry){
             participant.events.push(event_id);
             participant["payment"] = participant["payment"] + event.price;
@@ -151,7 +154,7 @@ createEntry: async (req, res) => {
                 created_by: user._id,
                 team_leader: participant._id,
                 event: event._id,
-                // participants: participants,
+                participants: participants,
                 payment: payment,
                 created_date:date
             });
@@ -162,7 +165,7 @@ createEntry: async (req, res) => {
                     res.send(err);
                 }
                 else{
-                    participant.events.push(event_id);
+                    participant.events.push(event._id);
                     participant["payment"] = participant["payment"] + event.price;
                     user["today_payment"] = user["today_payment"] + event.price; 
                     event["available_entries"] = event["available_entries"] - 1;

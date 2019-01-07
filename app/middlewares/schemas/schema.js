@@ -62,6 +62,7 @@ var UserSchema = new Schema({
 
   var EventsSchema = new Schema({
     name: {type: String, required:true},
+    type:{type:String, required:true},
     department: {type: Schema.Types.ObjectId, ref: 'Departments'},
     max_participants:{type: Number, required: true},
     min_members: {type: Number, required:true},

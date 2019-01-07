@@ -16,6 +16,7 @@ module.exports = {
         let round2 = req.body.round2_description;
         let round3 = req.body.round3_description;
         let coordinators = req.body.coordinators;
+        let type = req.body.event_type;
         let img = req.body.image;
         let description = req.body.event_description;
         let event = await getSingleData(Events,{name: name});
@@ -38,6 +39,7 @@ module.exports = {
             available_entries: max_participants,
             description: description,
             img: img,
+            type:type,
             rounds:{
                 round1: round1,
                 round2:round2,

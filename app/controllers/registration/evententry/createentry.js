@@ -111,7 +111,7 @@ createEntry: async (req, res) => {
 
     let payment = 0;
     let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');
-    let event = await getSingleData(Events,{name: req.body.intrested_event});
+    var event = await getSingleData(Events,{name: req.body.intrested_event});
     //console.log(req.body.team_members);
     let participant = await getSingleData(Participants,{phone: req.body.participant},'_id college events payment');        
     // console.log(team_leader);
@@ -124,7 +124,7 @@ createEntry: async (req, res) => {
     // let parti = {};
     var leader_id = null;
         if(req.body.leader_id){
-            let entry = await getSingleData(Colleges,{team_id: },'payment ');
+            let entry = await getSingleData(Colleges,{$and:[{team_leader: req.body.leader_id},{event: event._id}]},'participants payment ');
             // leader_id = req.body.leader_id;
 
         }

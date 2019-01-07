@@ -5,7 +5,7 @@ var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
     addEvent: async (req, res) => {
-        
+        console.log(req.body.department_id);
         let name = req.body.event_name;
         let department = await getSingleData(Departments,{_id: req.body.department_id});
         let max_participants= req.body.max_participants;
@@ -24,6 +24,7 @@ module.exports = {
        //console.log(olduser);
        console.log(event);
        console.log(department);
+       console.log(req.body.department_id);
        
        if(department === null){
         return res.json({status: true, eventAdded:false,alreadyAdded:false,error:true});
@@ -31,6 +32,7 @@ module.exports = {
     if(event===null){
         var newEvent = new Events({
             name: name,
+            //event_type:event_type,
             department: department._id,
             max_members:max_members,
             min_members: min_members,

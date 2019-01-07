@@ -127,7 +127,8 @@ createEntry: async (req, res) => {
     let participants = [];
     participants.push(participant._id);
     payment = event.price;
-    if(oldentry === null && event.available_entries != 0){
+    if(oldentry === null){
+    if(event.available_entries != 0){
         if(req.body.leader_phone){
             leader_id = await getSingleData(Participants,{phone:req.body.leader_phone});
             // let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
@@ -182,6 +183,9 @@ createEntry: async (req, res) => {
     } else {
         res.json({status: true, entryadded: false, entryFull:true});
     }
+} else {
+    res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: true});
+}
     // if(leader_id !=null)
     // participants.push(team_leader._id);
     // partifull.push(team_leader);

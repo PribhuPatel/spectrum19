@@ -24,7 +24,7 @@ module.exports = {
   //   options: { limit: 5 }
   // }).
   // exec();
-  let leaders  = await  getManyDataWithPopulateWithLimit(Entries,{event:req.body.event_id},5,'team_leader','team_leader','firstname lastname phone');
+  let leaders  = await  getManyDataWithPopulateWithLimit(Entries,{event:req.body.event_id},5,'team_leader college','team_leader','firstname lastname phone college name');
   leaders = leaders.filter(l=> l.team_leader.phone.toString().includes(partiPhone.toString()));
   // let leaders  = await getManyDataWithPopulateWithLimit(Entries,{$and:[{event:req.body.event_id},{"$where": "function(){ return this.team_leader.phone.toString().match(/"+partiPhone+"/)!=null;}"}]},5,'phone name','team_leader')
   // let leaders =  await Entries.find({$and:[{event:req.body.event_id},{"$where": "function(){ return this.team_leader.phone.toString().match(/"+partiPhone+"/)!=null;}"}]}).populate({

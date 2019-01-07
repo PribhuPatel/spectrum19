@@ -11,7 +11,7 @@ module.exports = {
         let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');
         let event = await getSingleData(Events,{name: req.body.intrested_event});
         //console.log(req.body.team_members);
-        let team_leader = await getSingleData(Participants,{phone: req.body.team_leader},'_id college events payment');        
+        let participant = await getSingleData(Participants,{phone: req.body.participant},'_id college events payment');        
         // console.log(team_leader);
         //console.log(r);
         //var team_members = JSON.parse(req.body.team_members);

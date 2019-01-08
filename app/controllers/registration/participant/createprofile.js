@@ -30,6 +30,7 @@ module.exports = {
     //    da = new Date(da + ' 00:00:00');
        
     if(participant===null){
+        console.log(participant);
         var newParticipant = new Participants({
             firstname: req.body.firstname,
             lastname: req.body.lastname,

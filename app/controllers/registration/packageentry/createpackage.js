@@ -81,7 +81,7 @@ console.log(oldentry);
         await user.save();
         await college.save();
         await participant.save();
-        return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,message:"Package added"});
+        return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,message:"Package added",payment:participant.payment});
     }
         }); 
                     

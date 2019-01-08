@@ -52,7 +52,7 @@ console.log(oldentry);
 
     if(oldentry === null && participant.package === null){
     if(event1event.available_entries != 0 && event2event.available_entries != 0 && event3event.available_entries != 0){
-
+        console.log("asasdadasdada");
       let event1entry =  await createNewEntry(event1event,event1,participant,participants,user,date,college);
       let event2entry =  await createNewEntry(event2event,event2,event1entry.participant,participants,event1entry.user,date,event1entry.college);
       let event3entry =  await createNewEntry(event3event,event3,event2entry.participant,participants, event2entry.user,date,event2entry.college);
@@ -67,7 +67,7 @@ console.log(oldentry);
             nontech:event3entry.id,
             participant:participant._id
         })
-
+        console.log("asasdadasdasaaaaaaaaaaaaaaada");
         await newPackage.save(async (err)=>{
             if(err){
                 console.log(err);
@@ -139,7 +139,7 @@ var createNewEntry = async (event,intrested_event,participant,participants,user,
         
            await newEntry.save(async (err)=>{
                 if(err) {
-                  //  console.log(err);
+                   console.log(err);
                     // res.send(err);
                     let returnVar = {
                         result: false

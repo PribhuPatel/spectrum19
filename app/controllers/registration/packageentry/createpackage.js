@@ -31,7 +31,7 @@ createPackage: async (req, res) => {
 
 let oldentry = await getSingleData(Entries,{$and:[{$or:[{event: event1event._id},{event: event2event._id},{event: event3event._id}]}, {participants : { "$in" : participants}}]});
 
-
+console.log(oldentry);
 //   let oldentry2 = await getSingleData(Entries,{$and:[{event: event2event._id},{participants : { "$in" : participants}}]});
 //   let oldentry3 = await getSingleData(Entries,{$and:[{event: event3event._id},{participants : { "$in" : participants}}]});
     // let participants = [];
@@ -95,7 +95,7 @@ let oldentry = await getSingleData(Entries,{$and:[{$or:[{event: event1event._id}
 
 
 var createNewEntry = async (event,intrested_event,participant,participants,user,date,college,entry)=>{
-        if(intrested_event.leader_phone != ""){
+        if(intrested_event.leader_phone != ''){
             var leader_id = await getSingleData(Participants,{phone: intrested_event.leader_phone});
             // let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
             let entry = await getSingleData(Entries,{$and:[{team_leader: leader_id},{event: event._id},{participants : { "$nin" : participants}}]},'participants payment');

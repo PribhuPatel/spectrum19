@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = require('mongoose').Schema;
-var {convertUTCDateToLocalDate} = require('../../utils/helpers/general_one_helper');
+var {localDate} = require('../../utils/helpers/general_one_helper');
 
 var UserSchema = new Schema({
     name: { type: String, required: true},
@@ -8,7 +8,7 @@ var UserSchema = new Schema({
     phone: {type: Number, index: true, required:true, unique: true},
     password: { type: String, match: /[a-z]/ ,required: true},
     role: {type: String, required: true},
-    created_date: { type: Date, default: convertUTCDateToLocalDate(new Date() )},
+    created_date: { type: Date, default: localDate(new Date() )},
     last_login: {type: Date},
     today_payment: {type: Number, required: true, default: 0 },
     status: {type:Boolean, required:true},
@@ -30,7 +30,7 @@ var UserSchema = new Schema({
     phone: {type: Number, index: true, required:true, unique: true},
     password: { type: String, match: /[a-z]/ ,required: true},
     role: {type: String, required: true},
-    created_date: { type: Date, default: convertUTCDateToLocalDate(new Date()) },
+    created_date: { type: Date, default: localDate(new Date() ) },
     last_login: {type: Date},
     department:{type: Schema.Types.ObjectId, ref: 'Departments'},
     college : {type:Schema.Types.ObjectId, required:true, ref: 'Colleges'}
@@ -122,7 +122,7 @@ var UserSchema = new Schema({
   var TokenSchema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'Users', required: true},
     token:{type: String, required: true},
-    created_time: {type: Date, default: convertUTCDateToLocalDate(new Date()) }
+    created_time: {type: Date, default: localDate(new Date()) }
   });
 
   var ScheduleSchema = new Schema({
@@ -146,7 +146,7 @@ var UserSchema = new Schema({
   });
 
   var RevenueSchema = new Schema({
-    date: {type:Date,default: convertUTCDateToLocalDate(new Date())},
+    date: {type:Date,default: localDate(new Date())},
     revenue: {type:Number},
     expense:{type:Number}
   });

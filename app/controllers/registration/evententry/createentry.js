@@ -1,7 +1,7 @@
 
 
 var {Events, Entries, Users, Participants,Colleges} = require('../../../middlewares/schemas/schema');
-var {getSingleData} = require('../../../utils/helpers/general_one_helper');
+var {getSingleData, localDate} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
 //     createEntry: async (req, res) => {
@@ -109,7 +109,8 @@ module.exports = {
 createEntry: async (req, res) => {
     // try{
         
-        let date = new Date();
+        // let date = new Date();
+        let date =localDate();
     let payment = 0;
     let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');
     var event = await getSingleData(Events,{_id: req.body.intrested_event});

@@ -1,13 +1,13 @@
 
 
 var {Events, Entries, Users, Participants,Colleges,Packages} = require('../../../middlewares/schemas/schema');
-var {getSingleData} = require('../../../utils/helpers/general_one_helper');
+var {getSingleData, localDate} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
 createPackage: async (req, res) => {
     // try{
         console.log(req.body);
-        let date = new Date();
+        let date = localDate();
     let payment = 0;
     let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');
     var event1  =req.body.tech1;

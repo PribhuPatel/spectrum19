@@ -1,4 +1,6 @@
 /* centalizing all the manual queries at one place */
+var moment = require('moment-timezone');
+
 module.exports = {
     /*getSingleData : async (Collection, query) =>{
         return new Promise((resolve, reject) =>{
@@ -65,14 +67,23 @@ module.exports = {
             }
         )})
     },
-    convertUTCDateToLocalDate:(date)=>{
-        var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+    localDate:()=>{
+        // var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
     
-        var offset = date.getTimezoneOffset() / 60;
-        var hours = date.getHours();
+        // var offset = date.getTimezoneOffset() / 60;
+        // var hours = date.getHours();
     
-        newDate.setHours(hours - offset + 1);
+        // newDate.setHours(hours - offset + 1);
     
-        return newDate;   
+        // return newDate;   
+        // let da  = new Date().toString();
+        //  let daa = da.split(' ');
+        // let date = new Date(daa[0]+' '+daa[1]+' '+daa[2]+' '+daa[3]+' '+daa[4]+' UTC');
+        
+
+    let da = moment().tz("Asia/Kolkata").format();
+    da  = da.split('+')[0]
+    let date = new Date(da+'.000Z');
+        return date;
     }
 }

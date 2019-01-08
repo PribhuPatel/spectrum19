@@ -1,8 +1,8 @@
 
 
 var {Participants, Users, Colleges} = require('../../../middlewares/schemas/schema');
-var {getSingleData,convertUTCDateToLocalDate} = require('../../../utils/helpers/general_one_helper');
-var moment = require('moment-timezone');
+var {getSingleData,localDate} = require('../../../utils/helpers/general_one_helper');
+// var moment = require('moment-timezone');
 
 
 module.exports = {
@@ -15,15 +15,18 @@ module.exports = {
         console.log(participant);
 
         
-let da = moment().tz("Asia/Kolkata").format();
-date = da.split('+')[0];
-// let date  = new Date(da);
+// let da = moment().tz("Asia/Kolkata").format();
+// console.log(da);
+// da.
+// var d = new Date(2018, 11, 24, 10, 33, 30, 0);
+// var date = da.split('+')[0];
+// date = date + "+11";
         
        //console.log(olduser.length);
        //console.log(olduser);
     //    let date = new Date();
     //    console.log(date);
-    //    date = convertUTCDateToLocalDate(date);
+     let  date = localDate();
     //    console.log(date);
     //    let date = new Date();
        // console.log(date+5.5);

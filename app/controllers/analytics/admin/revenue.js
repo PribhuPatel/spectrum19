@@ -7,10 +7,17 @@ module.exports = {
        var total_expense=0;
        var total_revenue = 0;
       let daily_revenue = await getManyData(Revenue,{});
+      var newDailyRevenue = [];
+    
       for(let i=0;i<daily_revenue.length;i++){
+          newDailyRevenue.push({
+              date: daily_revenue[i].split('T')[0],
+              revenue: daily_revenue[i].revenue,
+              expense: daily_revenue[i].expense
+          });
           total_revenue = daily_revenue[i].revenue + total_revenue;
           total_expense = daily_revenue[i].expense + total_expense;
-      } 
+      }
 
       let today_payment = await Users.aggregate([
         // { $match: { events : { "$in" : [events[i]._id]}}  },

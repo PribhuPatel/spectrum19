@@ -1,7 +1,7 @@
 
 
 var {Users,Departments,Participants} = require('../../middlewares/schemas/schema');
-var {getSingleDataWithPopulate, getSingleData,getManyData, getManyDataWithPopulate, getCount,convertUTCDateToLocalDate} = require('../../utils/helpers/general_one_helper');
+var {getSingleDataWithPopulate, getSingleData,getManyData, getManyDataWithPopulate, getCount,localDate} = require('../../utils/helpers/general_one_helper');
 var {verifyToken}  = require('../../middlewares/verifytoken');
 module.exports = {
     dashboard: async (req, res,next) => {

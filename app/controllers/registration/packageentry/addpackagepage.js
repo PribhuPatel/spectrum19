@@ -6,8 +6,8 @@ var {getManyData, getManyDataWithPopulateWithLimit} = require('../../../utils/he
 module.exports = {
   addPackagePage: async (req, res) => {
         
-        let techevents =await getManyData(Events,{event_type:'tech'},'name');
-        let nontechevents =await getManyData(Events,{event_type:'nontech'},'name');
+        let techevents =await getManyData(Events,{event_type:'tech'},'name min_members max_members');
+        let nontechevents =await getManyData(Events,{event_type:'nontech'},'name min_members max_members');
       //  let college = await getManyData(Colleges,{},'name city');
        //console.log(olduser.length);
        //console.log(olduser);

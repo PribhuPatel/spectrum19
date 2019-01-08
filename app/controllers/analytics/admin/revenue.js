@@ -11,7 +11,7 @@ module.exports = {
     
       for(let i=0;i<daily_revenue.length;i++){
           newDailyRevenue.push({
-              date: daily_revenue[i].split('T')[0],
+              date: daily_revenue[i].date.split('T')[0],
               revenue: daily_revenue[i].revenue,
               expense: daily_revenue[i].expense
           });

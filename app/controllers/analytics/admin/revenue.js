@@ -8,10 +8,14 @@ module.exports = {
        var total_revenue = 0;
       let daily_revenue = await getManyData(Revenue,{});
       var newDailyRevenue = [];
+    //   let date =new Date();
+    //   date.
     
       for(let i=0;i<daily_revenue.length;i++){
+          console.log(daily_revenue[i].date);
+        //   daily_revenue[i].date.toISOString().split('T')[0];
           newDailyRevenue.push({
-              date: daily_revenue[i].date.split('T')[0],
+              date: daily_revenue[i].date.toISOString().split('T')[0],
               revenue: daily_revenue[i].revenue,
               expense: daily_revenue[i].expense
           });
@@ -24,7 +28,7 @@ module.exports = {
         { $group: { _id: null,payment : { $sum : "$today_payment" }} }
     ]).exec()
       // let events = await getManyDataWithPopulate(Events,{},'department','name max_participants available_entries','name');
-        return res.json({status: true, daily_revenue:daily_revenue,total_revenue:total_revenue,total_expense:total_expense,today_revenue:today_payment[0].payment,today_expense:today_expense});
+        return res.json({status: true, daily_revenue:newDailyRevenue, total_revenue:total_revenue,total_expense:total_expense,today_revenue:today_payment[0].payment,today_expense:today_expense});
 }
   };
   

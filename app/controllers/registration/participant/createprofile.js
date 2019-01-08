@@ -44,7 +44,7 @@ module.exports = {
         //let a= 10;
        await newParticipant.save(async (err)=>{
             if(err) {
-              //  console.log(err);
+               console.log(err);
                 res.send(err);
             }
             else{

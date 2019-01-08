@@ -48,7 +48,7 @@ var UserSchema = new Schema({
     created_date: { type: Date  },
     events: [{type: Schema.Types.ObjectId, ref: 'Events'}],
     password: {type:String},
-    package:{type:Schema.Types.ObjectId, ref: 'Packages',required:true,default:null}
+    package:{type:Schema.Types.ObjectId, ref: 'Packages',default:null}
   });
 
   var CollegeSchema = new Schema({

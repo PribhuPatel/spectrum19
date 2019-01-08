@@ -2,6 +2,8 @@
 
 var {Participants, Users, Colleges} = require('../../../middlewares/schemas/schema');
 var {getSingleData,convertUTCDateToLocalDate} = require('../../../utils/helpers/general_one_helper');
+var moment = require('moment-timezone');
+
 
 module.exports = {
     createProfile : async (req, res) => {
@@ -11,20 +13,26 @@ module.exports = {
         let user = await getSingleData(Users, {phone: req.user.phone});
         let college = await getSingleData(Colleges,{$and:[{name: req.body.college.split(",")[0]},{city: req.body.college.split(",")[1]}]});
         console.log(participant);
+
+        
+let da = moment().tz("Asia/Kolkata").format();
+date = da.split('+')[0];
+// let date  = new Date(da);
+        
        //console.log(olduser.length);
        //console.log(olduser);
     //    let date = new Date();
     //    console.log(date);
     //    date = convertUTCDateToLocalDate(date);
     //    console.log(date);
-       let date = new Date();
+    //    let date = new Date();
        // console.log(date+5.5);
        // date = date+5.5;
        
        // let da1 =date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1); 
        
        // console.log();
-       date = convertUTCDateToLocalDate(date);
+    //    date = convertUTCDateToLocalDate(date);
     //    let da = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +date.getDate() ;
        console.log(date);
     //    da = new Date(da + ' 00:00:00');

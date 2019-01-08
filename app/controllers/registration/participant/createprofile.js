@@ -5,12 +5,12 @@ var {getSingleData,convertUTCDateToLocalDate} = require('../../../utils/helpers/
 
 module.exports = {
     createProfile : async (req, res) => {
-        
+        console.log(req.body);
         let partiPhone = req.body.phone;
         let participant = await getSingleData(Participants,{phone:partiPhone});
         let user = await getSingleData(Users, {phone: req.user.phone});
         let college = await getSingleData(Colleges,{$and:[{name: req.body.college.split(",")[0]},{city: req.body.college.split(",")[1]}]});
-
+        console.log(participant);
        //console.log(olduser.length);
        //console.log(olduser);
     //    let date = new Date();
@@ -54,11 +54,13 @@ module.exports = {
                 await college.save();
                 await user.save();
                // console.log("Saved");
-            res.json({status: true, addParticipant: true,participant_payment: newParticipant.payment});
+           return res.json({status: true, addParticipant: true, alreadyAdded:false});
+           
+        //    return res.json({status: true, addParticipant: true,participant_payment: newParticipant.payment});
             }
         });
     }else{
-        res.json({status: true,addParticipant: false, alreadyAdded: true});
+        return res.json({status: true,addParticipant: false, alreadyAdded: true});
     }
 //   console.log(req.body.email);
 //   console.log(req.body.password);

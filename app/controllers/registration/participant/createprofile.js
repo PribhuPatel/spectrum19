@@ -47,8 +47,8 @@ module.exports = {
                 res.send(err);
             }
             else{
-                user["today_payment"] = user["today_payment"] + 30;
-                console.log(user["today_payment"]);
+                // user["today_payment"] = user["today_payment"] + 30;
+                // console.log(user["today_payment"]);
                 await user.registered.participants.push(newParticipant._id);
                 await college.registered.participants.push(newParticipant._id);
                 await college.save();

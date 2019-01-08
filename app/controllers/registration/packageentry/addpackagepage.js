@@ -26,7 +26,7 @@ module.exports = {
   // }).
   // exec();
   let leaders  = await  getManyDataWithPopulateWithLimit(Entries,{event:req.body.event_id},5,'team_leader college','team_leader','firstname lastname phone college name');
-  leaders = leaders.filter(l=> l.team_leader.phone.toString().includes(partiPhone.toString()));
+  leaders = await leaders.filter(l=> l.team_leader.phone.toString().includes(partiPhone.toString()));
   return res.json({status:true, leaders:leaders});
     }
   };

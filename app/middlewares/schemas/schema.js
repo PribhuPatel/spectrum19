@@ -43,11 +43,12 @@ var UserSchema = new Schema({
     phone: {type: Number, index: true, required:true, unique: true},
     college: {type:Schema.Types.ObjectId, required:true, ref: 'Colleges'},
     cvm:{type: Boolean, required: true},
-    payment: {type: Number, required: true, default: 30},
+    payment: {type: Number, required: true, default: 0},
     createby: { type: Schema.Types.ObjectId,ref: 'Users',required: true},
     created_date: { type: Date  },
     events: [{type: Schema.Types.ObjectId, ref: 'Events'}],
-    password: {type:String}
+    password: {type:String},
+    package:{type:Schema.Types.ObjectId, ref: 'Packages',required:true,default:null}
   });
 
   var CollegeSchema = new Schema({
@@ -98,7 +99,17 @@ var UserSchema = new Schema({
     event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
     participants: [{type: Schema.Types.ObjectId , ref:'Participants', required: true}],
     created_by: {type: Schema.Types.ObjectId, ref: 'Users',required:true},
-    payment: {type: Number, required:true},
+    // payment: {type: Number, required:true,default:0},
+    created_date:{type:Date,required:true}
+    // package:{type:Schema.Types.ObjectId,ref:Packages}
+  });
+
+  var PackageSchema = new Schema({
+    participant:{type: Schema.Types.ObjectId, ref:'Participants',required:true},
+    tech1:{type: Schema.Types.ObjectId, ref: 'Entries'},
+    tech2: {type: Schema.Types.ObjectId, ref: 'Entries'},
+    nontech: {type: Schema.Types.ObjectId, ref: 'Entries'},
+    // payment: {type: Number, required:true,default:0},
     created_date:{type:Date,required:true}
     // package:{type:Schema.Types.ObjectId,ref:Packages}
   });
@@ -151,7 +162,8 @@ var Colleges = mongoose.model('Colleges',CollegeSchema);
 var GlobalVars = mongoose.model('GlobalVars', GlobalVarSchema);
 var Tokens = mongoose.model('Tokens', TokenSchema);
 var Admins = mongoose.model('Admins', AdminsSchema);
+var Packages= mongoose.model('Packages', PackageSchema);
 
 module.exports = {
-    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins, Schedules,Revenue
+    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins, Schedules,Revenue,Packages
 }

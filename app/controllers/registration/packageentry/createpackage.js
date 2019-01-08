@@ -1,17 +1,18 @@
 
 
-var {Events, Entries, Users, Participants,Colleges} = require('../../../middlewares/schemas/schema');
+var {Events, Entries, Users, Participants,Colleges,Packages} = require('../../../middlewares/schemas/schema');
 var {getSingleData} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
 createPackage: async (req, res) => {
     // try{
+        console.log(req.body);
         let date = new Date();
     let payment = 0;
     let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');
     var event1  =req.body.tech1;
     var event2 = req.body.tech2;
-    var event3 = req.body.tech3;
+    var event3 = req.body.nontech;
     //console.log(req.body.team_members);
     let participant = await getSingleData(Participants,{phone: req.body.participant},'_id college events payment');
 
@@ -30,6 +31,7 @@ createPackage: async (req, res) => {
 
 let oldentry = await getSingleData(Entries,{$and:[{$or:[{event: event1event._id},{event: event2event._id},{event: event3event._id}]}, {participants : { "$in" : participants}}]});
 
+
 //   let oldentry2 = await getSingleData(Entries,{$and:[{event: event2event._id},{participants : { "$in" : participants}}]});
 //   let oldentry3 = await getSingleData(Entries,{$and:[{event: event3event._id},{participants : { "$in" : participants}}]});
     // let participants = [];
@@ -37,35 +39,63 @@ let oldentry = await getSingleData(Entries,{$and:[{$or:[{event: event1event._id}
     // let parti = {};
   //  for(i=0;i<events.length<i++){
     
-    payment1 = event1event.price;
-    payment2 = event2event.price;
-    payment3 = event3event.price;
+    // payment1 = event1event.price;
+    // payment2 = event2event.price;
+    // payment3 = event3event.price;
 
     
-    user["today_payment"] = user["today_payment"] + event.price; 
+    // user["today_payment"] = user["today_payment"] + event.price; 
 
-    participant.save();
+    // participant.save();
 
-    user.save();
+    // user.save();
 
-    if(oldentry === null){
+    if(oldentry === null && participant.package != null){
     if(event1event.available_entries != 0 && event2event.available_entries != 0 && event3event.available_entries != 0){
 
+      let event1entry =  await createNewEntry(event1event,event1,participant,participants,user,date,college);
+      let event2entry =  await createNewEntry(event2event,event2,event1entry.participant,participants,event1entry.user,date,event1entry.college);
+      let event3entry =  await createNewEntry(event3event,event3,event2entry.participant,participants, event2entry.user,date,event2entry.college);
 
+      user = event3entry.user;
+      college = event3entry.college;
+      participant = event3entry.participant;
+
+        let newPackage = new Packages({
+            tech1: event1entry.id,
+            tech2: event2entry.id,
+            nontech:event3entry.id,
+            participant:participant._id
+        })
+
+        await newPackage.save(async (err)=>{
+            if(err){
+                console.log(err);
+            } else {
+                
+        participant["payment"] = participant["payment"] + 50;
+        participant["package"] = newPackage._id;
+        user["today_payment"] = user["today_payment"] + 50;
+        await user.save();
+        await participant.save();
+        return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,message:"Package added"});
+    }
+        }); 
+                    
     } else {
         return res.json({status: true, entryadded: false, entryFull:true, alreadyAdded: false,message:"Event Entry Full"});
     }
 } else {
-    return res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: true,message:"Participant already added in " +event.name + " event"});
+    return res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: true,message:"Participant already added in event or package registered by participant"});
 }
 }
-  }
 };
 
 
 
-var createNewEntry = async (event,intrested_event,participant,participants)=>{
-        if(event.leader_phone){
+
+var createNewEntry = async (event,intrested_event,participant,participants,user,date,college,entry)=>{
+        if(intrested_event.leader_phone != ""){
             var leader_id = await getSingleData(Participants,{phone: intrested_event.leader_phone});
             // let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
             let entry = await getSingleData(Entries,{$and:[{team_leader: leader_id},{event: event._id},{participants : { "$nin" : participants}}]},'participants payment');
@@ -75,11 +105,24 @@ var createNewEntry = async (event,intrested_event,participant,participants)=>{
                     
             entry.participants.push(participant._id);
             entry["payment"] = entry["payment"] + event.price;
-            entry.save();
-            return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,payment:payment})
+            await entry.save();
+            
+        //    await participant.save();
+            // return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,payment:payment})
+            let returnVar = {
+                id: entry._id,
+                participant:participant,
+                user:user,
+                college: college,
+                result:true
+            }
+            return returnVar;
             }
             else{
-                return res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: false,max_members:true,message:"Maximum members in team"});
+               let returnVar = {
+                   result: false
+               }
+                return returnVar;
             }
             // leader_id = req.body.leader_id;
 
@@ -90,28 +133,41 @@ var createNewEntry = async (event,intrested_event,participant,participants)=>{
                 team_leader: participant._id,
                 event: event._id,
                 participants: participants,
-                payment: payment,
+                // payment: event.price,
                 created_date:date
             });
         
            await newEntry.save(async (err)=>{
                 if(err) {
                   //  console.log(err);
-                    res.send(err);
+                    // res.send(err);
+                    let returnVar = {
+                        result: false
+                    }
+                     return returnVar;
                 }
                 else{
                     participant.events.push(event._id);
-                    participant["payment"] = participant["payment"] + event.price;
-                    user["today_payment"] = user["today_payment"] + event.price; 
+                    // participant["payment"] = participant["payment"] + event.price;
+                    // user["today_payment"] = user["today_payment"] + event.price; 
                     event["available_entries"] = event["available_entries"] - 1;
                     user.registered.entries.push(newEntry._id);
                     college.registered.entries.push(newEntry._id);
-                   college.save();
-                   event.save();
-                    user.save();
-                    participant.save();
-                    console.log(participant);
-                return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});
+                //    await college.save();
+                   await event.save();
+                    // await user.save();
+                    // await participant.save();
+                    // console.log(participant);
+                    
+                    let returnVar = {
+                        id: newEntry._id,
+                        participant:participant,
+                        user:user,
+                        college: college,
+                        result:true
+                    }
+                    return returnVar;
+                // return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});
                 }
             });
         }

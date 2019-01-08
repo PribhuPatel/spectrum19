@@ -141,9 +141,9 @@ createEntry: async (req, res) => {
                     
             entry.participants.push(participant._id);
             entry["payment"] = entry["payment"] + event.price;
-            entry.save();
-            user.save();
-            participant.save();
+           await entry.save();
+            await user.save();
+           await participant.save();
             return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,payment:payment})
             }
             else{
@@ -174,10 +174,10 @@ createEntry: async (req, res) => {
                     event["available_entries"] = event["available_entries"] - 1;
                     user.registered.entries.push(newEntry._id);
                     college.registered.entries.push(newEntry._id);
-                   college.save();
-                   event.save();
-                    user.save();
-                    participant.save();
+                    await college.save();
+                    await event.save();
+                    await user.save();
+                    await participant.save();
                     console.log(participant);
                 return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});
                 }

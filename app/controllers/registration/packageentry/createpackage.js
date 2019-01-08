@@ -50,7 +50,7 @@ console.log(oldentry);
 
     // user.save();
 
-    if(oldentry === null && participant.package != null){
+    if(oldentry === null && participant.package === null){
     if(event1event.available_entries != 0 && event2event.available_entries != 0 && event3event.available_entries != 0){
 
       let event1entry =  await createNewEntry(event1event,event1,participant,participants,user,date,college);

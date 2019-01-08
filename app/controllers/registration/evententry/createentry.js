@@ -144,7 +144,7 @@ createEntry: async (req, res) => {
             entry.save();
             user.save();
             participant.save();
-            return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false})
+            return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,payment:payment})
             }
             else{
                 return res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: false,max_members:true,message:"Maximum members in team"});
@@ -179,7 +179,7 @@ createEntry: async (req, res) => {
                     user.save();
                     participant.save();
                     console.log(participant);
-                return res.json({status: true, entryadded: true, payment : payment});
+                return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});
                 }
             });
         }
@@ -189,122 +189,38 @@ createEntry: async (req, res) => {
 } else {
     return res.json({status: true, entryadded: false, entryFull:false, alreadyAdded: true,message:"Participant already added in " +event.name + " event"});
 }
-    // if(leader_id !=null)
-    // participants.push(team_leader._id);
-    // partifull.push(team_leader);
-    // await req.body.team_members.forEach((element) => {
-    //     console.log();
-    //     parti =  getSingleData(Participants,{phone: element.key},'_id events payment');
-    //     console.log(parti);
-    //     participants.push(parti._id);
-    //     partifull.push(parti);
-    // });
-    // let runloop = await runForEach(Participants,req.body.team_members);
-   
-    //  participants = participants.concat(runloop.participants);
-    //  partifull = partifull.concat(runloop.partifull);
-    // // participants = runloop.participants;
-    // // partifull = runloop.partifull;
-    // //let pay = 0;
-    // payment = participants.length * event.price;
-
-    
-//     console.log();
-//     console.log(participants);
-//    console.log();
-//   console.log(partifull);
-
-// let date = new Date();
-// // console.log(date+5.5);
-// // date = date+5.5;
-
-// // let da1 =date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1); 
-
-// // console.log();
-// date = convertUTCDateToLocalDate(date);
-// //    let da = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +date.getDate() ;
-// console.log(date);
-
-//    //console.log(olduser.length);
-//    //console.log();
-//    console.log(oldentry);
-//    //console.log();
-//    if(oldentry === null && event.available_entries != 0){
-
-//     var newEntry = new Entries({
-//         created_by: user._id,
-//         team_leader: team_leader._id,
-//         event: event._id,
-//         participants: participants,
-//         payment: payment,
-//         created_date:date
-//     });
-
-//    await newEntry.save(async (err)=>{
-//         if(err) {
-//           //  console.log(err);
-//             res.send(err);
-//         }
-//         else{
-
-//             partifull.forEach(element=>{
-//            //     payment = payment +  event.price;
-//                 element.events.push(event._id);
-//                 element["payment"] = element["payment"] + event.price;
-//                 element.save();
-//                 user["today_payment"] = user["today_payment"] + event.price;     
-//             });
-//             event["available_entries"] = event["available_entries"] - 1;
-//            user.registered.entries.push(newEntry._id);
-//            college.registered.entries.push(newEntry._id);
-//            college.save();
-//            event.save();
-//             user.save();
-//         return res.json({status: true, entryadded: true, payment : payment});
-//         }
-//     });
-// }else{
-//     return res.json({status: true, entryadded: false});
-// }
-// } catch(e){
-// console.log(e);
-// return res.json({status:false});
-// }
-//   console.log(req.body.email);
-//   console.log(req.body.password);
- // res.json({ status: true });
 }
   };
   
 
-  var runForEach = async (Participants,team_members)=>{
-    //   let promises = [];
-        var participants = [];
-        var partifull = [];
-    //     team_members.forEach(async (element) => {
-    //         // console.log();
-    //         parti = await getSingleData(Participants,{phone: element.key},'_id events payment');
-    //         promises.push(parti); 
-    //         //console.log(parti);
-    //         // participants.push(parti._id);
-    //         // partifull.push(parti);
-    //     });
-    //     console.log(promises);
-    //     //console.log("data" +partifull);
-    //     Promise.all(promises).then((elem)=>{
-    //         console.log(elem);
-    //     });
-    await asyncForEach(team_members,async (element)=>{
-        parti = await getSingleData(Participants,{phone: element.key},'_id events payment'); 
-          await  participants.push(parti._id);
-           await  partifull.push(parti);
-    })
-    return {participants,partifull};
-  }
+//   var runForEach = async (Participants,team_members)=>{
+//     //   let promises = [];
+//         var participants = [];
+//         var partifull = [];
+//     //     team_members.forEach(async (element) => {
+//     //         // console.log();
+//     //         parti = await getSingleData(Participants,{phone: element.key},'_id events payment');
+//     //         promises.push(parti); 
+//     //         //console.log(parti);
+//     //         // participants.push(parti._id);
+//     //         // partifull.push(parti);
+//     //     });
+//     //     console.log(promises);
+//     //     //console.log("data" +partifull);
+//     //     Promise.all(promises).then((elem)=>{
+//     //         console.log(elem);
+//     //     });
+//     await asyncForEach(team_members,async (element)=>{
+//         parti = await getSingleData(Participants,{phone: element.key},'_id events payment'); 
+//           await  participants.push(parti._id);
+//            await  partifull.push(parti);
+//     })
+//     return {participants,partifull};
+//   }
 
 
-  async function asyncForEach(array, callback) {
-    for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array);
-    }
-  }
+//   async function asyncForEach(array, callback) {
+//     for (let index = 0; index < array.length; index++) {
+//       await callback(array[index], index, array);
+//     }
+//   }

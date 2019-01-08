@@ -7,6 +7,8 @@ router.use('/event', require('./events'));
 
 router.use('/evententry', require('./evententry'));
 
+router.use('/packageentry', require('./packageentry'));
+
 router.use('/department', require('./department'));
 
 router.use('/college', require('./college'));

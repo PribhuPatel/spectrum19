@@ -108,6 +108,7 @@ module.exports = {
 //     }
 createEntry: async (req, res) => {
     // try{
+        
         let date = new Date();
     let payment = 0;
     let user = await getSingleData(Users,{phone: req.user.phone},'_id today_payment registered');

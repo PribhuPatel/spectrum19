@@ -14,7 +14,7 @@ createPackage: async (req, res) => {
     var event2 = req.body.tech2;
     var event3 = req.body.nontech;
     //console.log(req.body.team_members);
-    let participant = await getSingleData(Participants,{phone: req.body.participant},'_id college events payment');
+    let participant = await getSingleData(Participants,{phone: req.body.participant},'_id college events payment package');
 
   let participants = [];
   participants.push(participant._id);
@@ -54,6 +54,7 @@ console.log(oldentry);
     if(event1event.available_entries != 0 && event2event.available_entries != 0 && event3event.available_entries != 0){
         console.log("asasdadasdada");
       let event1entry =  await createNewEntry(event1event,event1,participant,participants,user,date,college);
+      console.log(event1entry);
       let event2entry =  await createNewEntry(event2event,event2,event1entry.participant,participants,event1entry.user,date,event1entry.college);
       let event3entry =  await createNewEntry(event3event,event3,event2entry.participant,participants, event2entry.user,date,event2entry.college);
 
@@ -65,7 +66,8 @@ console.log(oldentry);
             tech1: event1entry.id,
             tech2: event2entry.id,
             nontech:event3entry.id,
-            participant:participant._id
+            participant:participant._id,
+            created_date:date
         })
         console.log("asasdadasdasaaaaaaaaaaaaaaada");
         await newPackage.save(async (err)=>{
@@ -77,6 +79,7 @@ console.log(oldentry);
         participant["package"] = newPackage._id;
         user["today_payment"] = user["today_payment"] + 50;
         await user.save();
+        await college.save();
         await participant.save();
         return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,message:"Package added"});
     }
@@ -95,6 +98,7 @@ console.log(oldentry);
 
 
 var createNewEntry = async (event,intrested_event,participant,participants,user,date,college,entry)=>{
+    return new Promise(async (resolve, reject) =>{
         if(intrested_event.leader_phone != ''){
             var leader_id = await getSingleData(Participants,{phone: intrested_event.leader_phone});
             // let oldentry  = await getSingleData(Entries, {$and:[{event: event._id},{participants : { "$in" : participants}}]});
@@ -116,13 +120,15 @@ var createNewEntry = async (event,intrested_event,participant,participants,user,
                 college: college,
                 result:true
             }
-            return returnVar;
-            }
+            // return returnVar;
+            resolve(returnVar);
+        }
             else{
                let returnVar = {
                    result: false
                }
-                return returnVar;
+                // return returnVar;
+                resolve(returnVar);
             }
             // leader_id = req.body.leader_id;
 
@@ -144,7 +150,9 @@ var createNewEntry = async (event,intrested_event,participant,participants,user,
                     let returnVar = {
                         result: false
                     }
-                     return returnVar;
+                    //  return returnVar;
+                    resolve(returnVar);
+                    //  (err ? reject(err) : resolve(result))
                 }
                 else{
                     participant.events.push(event._id);
@@ -166,10 +174,12 @@ var createNewEntry = async (event,intrested_event,participant,participants,user,
                         college: college,
                         result:true
                     }
-                    return returnVar;
+                    // return returnVar;
+                    resolve(returnVar);
                 // return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});
                 }
             });
         }
+    });
     
 }

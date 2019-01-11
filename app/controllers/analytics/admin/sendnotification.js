@@ -10,21 +10,21 @@ let expo = new Expo();
 var receiptIds = [];
 module.exports = {
     sendNotification: async (req, res,next) => {
-        let pushTokens  = getManyData(NotificationTokens,{});
-        
-        let messages = [];
+        var pushTokens  =await getManyDataWithPopulate(NotificationTokens,{},'participant','participant token','firstname lastname payment');
+        console.log(pushTokens);
+        var messages = [];
         for(i=0;i<pushTokens.length;i++)
         {
         messages.push({
             to: pushTokens[i].token,
             sound: 'default',
-            body: 'This is a test notification',
+            body: "Hello " + pushTokens[i].participant.firstname + " " +pushTokens[i].participant.lastname +", Your Payment is="+pushTokens[i].participant.payment,
             data: { withSome: 'data' },
           })
         }
 
-        let chunks = expo.chunkPushNotifications(messages);
-        let tickets = [];
+        var chunks = expo.chunkPushNotifications(messages);
+        var tickets = [];
         (async () => {
           // Send the chunks to the Expo push notification service. There are
           // different strategies you could use. A simple one is to send one chunk at a
@@ -33,7 +33,7 @@ module.exports = {
             try {
               let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
               console.log(ticketChunk);
-              tickets.push(...ticketChunk);
+              tickets.push(ticketChunk);
               // NOTE: If a ticket contains an error code in ticket.details.error, you
               // must handle it appropriately. The error codes are listed in the Expo
               // documentation:
@@ -43,6 +43,7 @@ module.exports = {
             }
           }
         })();
+        return res.json({status: true, tickets:tickets})
         
         // Later, after the Expo push notification service has delivered the
         // notifications to Apple or Google (usually quickly, but allow the the service

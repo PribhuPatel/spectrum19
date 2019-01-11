@@ -22,4 +22,6 @@ router.get('/changeportalstatus', require('./portalstatus').portalStatusChange);
 
 router.get('/cron', require('./cronjob').runCron);
 
+router.post('/sendnotifications', require('./sendnotification').sendNotification);
+
 module.exports = router;

@@ -16,6 +16,5 @@ router.use('/getdata', require('./getdata'));
 
 router.use('/csv', require('./csv'));
 
-router.use('/notification', require('./notification'));
 
 module.exports = router;

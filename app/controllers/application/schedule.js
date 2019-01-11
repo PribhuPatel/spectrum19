@@ -1,12 +1,17 @@
 
 
 var {Participants, Events, Schedules, GlobalVars} = require('../../middlewares/schemas/schema');
-var {getSingleDataWithPopulate,getSingleData, getManyDataWithPopulate} = require('../../utils/helpers/general_one_helper');
+var {getSingleDataWithPopulate,getSingleData, getManyDataWithPopulate, getCount} = require('../../utils/helpers/general_one_helper');
 
 module.exports = {
    getSchedule: async(req,res)=>{
         let user = await getSingleDataWithPopulate(Participants,{phone:req.user.phone},'events','events','name');
         let day1date = await getSingleData(GlobalVars,{key:'day1 date'},'value');
+        // let schedules = await getCount(Schedules,{});
+        let declareSchedule  = await getSingleData(GlobalVars,{key:"declareschedule"});
+        if(declareSchedule.value === "false"){
+            return res.json({status:true, declaired:false})
+        } else {
         // let day2date = await getSingleData(GlobalVars,{key:'day2 date'},'value');
       //  let totalSchedule = await getManyDataWithPopulate(Schedules,{},'event','event round1 round2 round3','name');
         console.log(req.user);
@@ -66,8 +71,9 @@ module.exports = {
         // if(events.length===0){
         //     res.json({status: true});
         // }else{
-            return res.json({status:true,day1:day1,day2:day2});
+            return res.json({status:true, day1:day1, day2:day2, declaired:true});
         // }   
     }
+}
   };
   

@@ -151,6 +151,11 @@ var UserSchema = new Schema({
     expense:{type:Number}
   });
 
+  var NotificationTokenSchema = new Schema({
+    token: {type:String},
+    participant:{type: Schema.Types.ObjectId , ref:'Participants', required: true},
+  })
+
 var Revenue = mongoose.model('Revenue',RevenueSchema);
 var Schedules = mongoose.model('Schedules',ScheduleSchema);
 var Participants =  mongoose.model('Participants', ParticipantSchema);
@@ -163,7 +168,8 @@ var GlobalVars = mongoose.model('GlobalVars', GlobalVarSchema);
 var Tokens = mongoose.model('Tokens', TokenSchema);
 var Admins = mongoose.model('Admins', AdminsSchema);
 var Packages= mongoose.model('Packages', PackageSchema);
+var NotificationTokens= mongoose.model('NotificationTokens', NotificationTokenSchema);
 
 module.exports = {
-    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins, Schedules,Revenue,Packages
+    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins, Schedules,Revenue,Packages, NotificationTokens
 }

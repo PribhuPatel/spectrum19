@@ -138,11 +138,14 @@ createEntry: async (req, res) => {
             let entry = await getSingleData(Entries,{$and:[{team_leader: leader_id},{event: event._id},{participants : { "$nin" : participants}}]},'participants payment');
             if(entry.participants.length < event.max_members){
             participant.events.push(event._id);
+            if(event.type == "mega"){
+                payment = 0;
+            } else {
             participant["payment"] = participant["payment"] + event.price;
-            user["today_payment"] = user["today_payment"] + event.price; 
-                    
-            entry.participants.push(participant._id);
+            user["today_payment"] = user["today_payment"] + event.price;
             entry["payment"] = entry["payment"] + event.price;
+            }
+            entry.participants.push(participant._id);
            await entry.save();
             await user.save();
            await participant.save();

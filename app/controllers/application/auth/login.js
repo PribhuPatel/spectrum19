@@ -71,7 +71,7 @@ module.exports = {
           return res.json({status:true,login:false,username: false,password:false,error:false});
         } else{
           if(loginuser.password===req.body.password){
-            let token = await createToken({data: {user:{firstname:loginuser.firstname,lastname:loginuser.lastname, phone: loginuser.phone}}});
+            let token = await createToken({data: {user:{firstname:loginuser.firstname,lastname:loginuser.lastname, phone: loginuser.phone,userid:loginuser._id}}});
             // const tokenData = await verifyToken(token);
             // console.log(tokenData);
            // res.cookie('access-token',token ,{ maxAge: 900000, httpOnly: true });
@@ -79,7 +79,7 @@ module.exports = {
         //   console
       //  res.append('Set-Cookie', 'access-token=' + token + ';');
             //return res.cookie('accesstoken',token,{ maxAge: 365 * 24 * 60 * 60 * 1000}).json({status:true,login:true ,username:true,password:true,error:false});
-            return res.json({status:true,login:true ,username:true,password:true,error:false, token: token, name: loginuser.name});
+            return res.json({status:true,login:true ,username:true,password:true,error:false, token: token, name: loginuser.name,userid:loginuser._id});
           } else{
             return res.json({status:true,login:false,username: true,password:false,error:false});
           }

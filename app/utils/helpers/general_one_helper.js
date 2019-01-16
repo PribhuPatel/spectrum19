@@ -90,7 +90,7 @@ module.exports = {
         return date;
     },
     sendmail:async (filepath,email,subject,replacements)=>{
-        return new Promise((resolve, reject) =>{
+        return new Promise(async (resolve, reject) =>{
     // var readHTMLFile = function(path, callback) {
         await readHTMLFile(__dirname + filepath,async function(err, html) {
             var template = handlebars.compile(html);

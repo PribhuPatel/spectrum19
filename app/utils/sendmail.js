@@ -5,7 +5,7 @@ var config={
     service: 'gmail',
         auth:
         {
-        user: 'np9532788@gmail.com',
+        user: 'spectrum@adit.ac.in',
       pass: 'mnbvcxz@987654321'
     }
 }

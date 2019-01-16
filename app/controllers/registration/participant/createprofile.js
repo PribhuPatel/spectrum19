@@ -60,7 +60,10 @@ module.exports = {
             }
             else{
                 let replacements = {
-                    name: newParticipant.firstname + " " + newParticipant.lastname
+                    name: newParticipant.firstname + " " + newParticipant.lastname,
+                    email: newParticipant.email,
+                    mobile: newParticipant.phone,
+                    college: newParticipant.college
                 }
                 // user["today_payment"] = user["today_payment"] + 30;
                 // console.log(user["today_payment"]);

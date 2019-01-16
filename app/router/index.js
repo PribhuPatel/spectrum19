@@ -28,7 +28,9 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.get('/verify/:token',async function(req,res){
-    let verify = await getSingleData(SingleEntries,{_id:req.params.token},'verify');
+    let token = req.params.token;
+    if(token.match(/^[0-9a-fA-F]{24}$/)){
+    let verify = await getSingleData(SingleEntries,{_id:},'verify');
     if(verify===null){
         return res.send("Token is not Acceptable");
     } else {
@@ -39,7 +41,10 @@ router.get('/verify/:token',async function(req,res){
         verify.save();
         return res.send("Thank You for verification");
     }
-    	}
+        }
+    } else {
+        return res.send("Enter valid token");
+    }
 })
 
 router.get('/mycsv',async function(req, res, next) {

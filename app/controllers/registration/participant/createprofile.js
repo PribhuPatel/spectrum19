@@ -63,7 +63,7 @@ module.exports = {
                     name: newParticipant.firstname + " " + newParticipant.lastname,
                     email: newParticipant.email,
                     mobile: newParticipant.phone,
-                    college: newParticipant.college
+                    college: newParticipant.college.name
                 }
                 // user["today_payment"] = user["today_payment"] + 30;
                 // console.log(user["today_payment"]);

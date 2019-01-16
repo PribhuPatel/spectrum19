@@ -107,7 +107,7 @@ module.exports = {
                     // callback(error);
                 } else{
                     // console.log(response);
-                    
+                    transporter.close();
             (error? reject(error) : resolve(response));
                 }
             });

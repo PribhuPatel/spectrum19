@@ -8,15 +8,15 @@ module.exports = {
     mongoDB : {
         user: 'admin',
         password: 'shreeji1',
-        host : 'ds135003.mlab.com',
-        port : 35003,
+        host : 'localhost',
+        port : 27017,
         database : 'spectrum'
     },   
      nodemailer:{
         service: 'gmail',
         auth: {
-            user: 'ieee@adit.ac.in',
-            pass: 'Shreejieee'
+            user: 'spectrum@adit.ac.in',
+            pass: 'Spec1700@adit19'
         }
     },
     /* do not change this salrounds value */

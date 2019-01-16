@@ -25,9 +25,9 @@ if (cluster.isMaster) {
 //     res.end('hello world\n');
 //   }).listen(8000);
 // console.log(`worker ${worker.process.pid}`);
-cluster.on('listening',(workder)=>{
+// cluster.on('listening',(workder)=>{
           // console.log(`worker ${worker.process.pid}`);
         
     require('./index');
-        });
+        // });
 }

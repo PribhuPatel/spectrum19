@@ -1,7 +1,7 @@
 
 
 var {Participants, Users, Colleges} = require('../../../middlewares/schemas/schema');
-var {getSingleData,localDate} = require('../../../utils/helpers/general_one_helper');
+var {getSingleData,localDate,sendmail} = require('../../../utils/helpers/general_one_helper');
 // var moment = require('moment-timezone');
 
 
@@ -59,6 +59,10 @@ module.exports = {
                 res.send(err);
             }
             else{
+                let replacements = {
+                    name: newParticipant.firstname + " " + newParticipant.lastname
+                }
+                sendmail('/participant.html',newParticipant.email,"You have Registered for Spectrum\'19",replacements);
                 // user["today_payment"] = user["today_payment"] + 30;
                 // console.log(user["today_payment"]);
                 await user.registered.participants.push(newParticipant._id);

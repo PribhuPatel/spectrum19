@@ -1,5 +1,7 @@
 /* centalizing all the manual queries at one place */
 var moment = require('moment-timezone');
+var handlebars = require('handlebars');
+const fs = require('fs');
 
 module.exports = {
     /*getSingleData : async (Collection, query) =>{
@@ -85,5 +87,38 @@ module.exports = {
     da  = da.split('+')[0]
     let date = new Date(da+'.000Z');
         return date;
-    }
+    },
+    sendmail:(filepath,email,subject,replacements)=>{
+        return new Promise((resolve, reject) =>{
+    // var readHTMLFile = function(path, callback) {
+        readHTMLFile(__dirname + filepath, function(err, html) {
+            var template = handlebars.compile(html);
+            var htmlToSend = template(replacements);
+            var mailOptions = {
+                from: 'spectrum@adit.ac.in',
+                to : email,
+                subject : subject,
+                html : htmlToSend
+            };
+            transporter.sendMail(mailOptions, function (error, response) {
+                if (error) {
+                    console.log(error);
+                    // callback(error);
+                }
+            });
+        });
+    })
 }
+}
+
+var readHTMLFile = function(path, callback) {
+    fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+        if (err) {
+            throw err;
+            callback(err);
+        }
+        else {
+            callback(null, html);
+        }
+    });
+};

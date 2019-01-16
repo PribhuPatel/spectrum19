@@ -158,7 +158,7 @@ var UserSchema = new Schema({
 
   var SingleEntriesSchema = new Schema({
     participant:{type: Schema.Types.ObjectId , ref:'Participants', required: true},
-    event:{type:Schema.Types.ObjectId, ref: 'Events', required: true,default:null},
+    event:{type:Schema.Types.ObjectId, ref: 'Events', default:null},
     entry: {type: Schema.Types.ObjectId, ref: 'Entries',default:null},
     package:{type:Schema.Types.ObjectId, ref: 'Packages',default:null},
     verify: {type:Boolean,default:false},

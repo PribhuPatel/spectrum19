@@ -159,7 +159,7 @@ createEntry: async (req, res) => {
            try{
             let mail = await sendmail('/packageverify.html',participant.email,"Spectrum'19 Event Verification",{token:singleEntry._id});
             console.log(mail);
-            } catch {
+            } catch (e){
                 console.log("Mail send failed to " + participant.email);
             }
             return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,payment:payment})
@@ -207,7 +207,7 @@ createEntry: async (req, res) => {
                     try{
                         let mail = await sendmail('/packageverify.html',participant.email,"Spectrum'19 Event Verification",{token:singleEntry._id});
                         console.log(mail);
-                        } catch {
+                        } catch(e) {
                             console.log("Mail send failed to " + participant.email);
                         }
                return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});

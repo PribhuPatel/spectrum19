@@ -90,7 +90,12 @@ console.log(oldentry);
         await user.save();
         await college.save();
         await participant.save();
-        await sendmail('/packageverify.html',participant.email,"Spectrum'19 Package Verification",{token:singleEntry._id});
+        try{
+        let mail = await sendmail('/packageverify.html',participant.email,"Spectrum'19 Package Verification",{token:singleEntry._id});
+        console.log(mail);
+        } catch {
+            console.log("Mail send failed to " + participant.email);
+        }
         return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,message:"Package added",payment:participant.payment});
     }
         }); 

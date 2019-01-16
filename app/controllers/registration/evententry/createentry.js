@@ -156,8 +156,12 @@ createEntry: async (req, res) => {
            await entry.save();
             await user.save();
            await participant.save();
-           
-        await sendmail('/packageverify.html',participant.email,"Spectrum'19 Event Verification",{token:singleEntry._id});
+           try{
+            let mail = await sendmail('/packageverify.html',participant.email,"Spectrum'19 Event Verification",{token:singleEntry._id});
+            console.log(mail);
+            } catch {
+                console.log("Mail send failed to " + participant.email);
+            }
             return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false,payment:payment})
             }
             else{
@@ -200,9 +204,13 @@ createEntry: async (req, res) => {
                     await user.save();
                     await participant.save();
                     console.log(participant);
-                    
-        await sendmail('/packageverify.html',participant.email,"Spectrum'19 Event Verification",{token:singleEntry._id});
-                return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});
+                    try{
+                        let mail = await sendmail('/packageverify.html',participant.email,"Spectrum'19 Event Verification",{token:singleEntry._id});
+                        console.log(mail);
+                        } catch {
+                            console.log("Mail send failed to " + participant.email);
+                        }
+               return res.json({status: true, entryadded: true, entryFull:false, alreadyAdded: false, payment : payment});
                 }
             });
         }

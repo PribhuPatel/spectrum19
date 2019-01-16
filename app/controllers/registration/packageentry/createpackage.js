@@ -1,6 +1,6 @@
 
 
-var {Events, Entries, Users, Participants,Colleges,Packages} = require('../../../middlewares/schemas/schema');
+var {Events, Entries, Users, Participants,Colleges,Packages, SingleEntries} = require('../../../middlewares/schemas/schema');
 var {getSingleData, localDate, sendmail} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {

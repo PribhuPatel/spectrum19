@@ -8,8 +8,8 @@ module.exports = {
     mongoDB : {
         user: 'admin',
         password: 'shreeji1',
-        host : 'localhost',
-        port : 27017,
+        host : 'ds135003.mlab.com',
+        port : 35003,
         database : 'spectrum'
     },   
      nodemailer:{

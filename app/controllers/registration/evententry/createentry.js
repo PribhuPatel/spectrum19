@@ -1,7 +1,7 @@
 
 
 var {Events, Entries, Users, Participants,Colleges, SingleEntries} = require('../../../middlewares/schemas/schema');
-var {getSingleData, localDate} = require('../../../utils/helpers/general_one_helper');
+var {getSingleData, localDate, sendmail} = require('../../../utils/helpers/general_one_helper');
 
 module.exports = {
 //     createEntry: async (req, res) => {

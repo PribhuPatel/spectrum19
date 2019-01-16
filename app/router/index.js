@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var {verifyToken} = require('../middlewares/verifytoken');
-var {Participants} = require('../middlewares/schemas/schema');
-var {getManyDataWithPopulate} = require('../utils/helpers/general_one_helper');
+// var {verifyToken} = require('../middlewares/verifytoken');
+var {Participants, SingleEntries} = require('../middlewares/schemas/schema');
+var {getManyDataWithPopulate, getSingleData} = require('../utils/helpers/general_one_helper');
 // var csv = require('csv');
 // const async = require('async');
 // const Json2csvParser = require('json2csv').Parser;
@@ -15,9 +15,9 @@ router.get('/',(req,res)=>{
     res.render("index");
 });
 
-router.get('/user',verifyToken,(req,res)=>{
-    res.render("user",{user:req.user});
-});
+// router.get('/user',verifyToken,(req,res)=>{
+//     res.render("user",{user:req.user});
+// });
 
 router.get('/login',function(req, res, next) {
   res.render('login');
@@ -27,6 +27,20 @@ router.get('/signup', function(req, res, next) {
     res.render('signup');
 });
 
+router.get('/verify/:token',async function(req,res){
+    let verify = await getSingleData(SingleEntries,{_id:req.params.token},'verify');
+    if(verify===null){
+        return res.send("Token is not Acceptable");
+    } else {
+    if(verify.verify){
+        return res.send("Already Verified");
+    }  else {
+        verify["verify"] = 1;
+        verify.save();
+        return res.send("Thank You for verification");
+    }
+    	}
+})
 
 router.get('/mycsv',async function(req, res, next) {
     // await downloadContacts(req,res);

@@ -2,6 +2,7 @@
 var moment = require('moment-timezone');
 var handlebars = require('handlebars');
 const fs = require('fs');
+var {transporter} = require('../sendmail');
 
 module.exports = {
     /*getSingleData : async (Collection, query) =>{

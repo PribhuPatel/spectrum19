@@ -89,10 +89,10 @@ module.exports = {
     let date = new Date(da+'.000Z');
         return date;
     },
-    sendmail:(filepath,email,subject,replacements)=>{
+    sendmail:async (filepath,email,subject,replacements)=>{
         return new Promise((resolve, reject) =>{
     // var readHTMLFile = function(path, callback) {
-        readHTMLFile(__dirname + filepath, function(err, html) {
+        await readHTMLFile(__dirname + filepath,async function(err, html) {
             var template = handlebars.compile(html);
             var htmlToSend = template(replacements);
             var mailOptions = {
@@ -101,7 +101,7 @@ module.exports = {
                 subject : subject,
                 html : htmlToSend
             };
-            transporter.sendMail(mailOptions, function (error, response) {
+            await transporter.sendMail(mailOptions, function (error, response) {
                 if (error) {
                     console.log(error);
                     // callback(error);

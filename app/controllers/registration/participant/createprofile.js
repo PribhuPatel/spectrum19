@@ -62,13 +62,14 @@ module.exports = {
                 let replacements = {
                     name: newParticipant.firstname + " " + newParticipant.lastname
                 }
-                sendmail('/participant.html',newParticipant.email,"You have Registered for Spectrum\'19",replacements);
                 // user["today_payment"] = user["today_payment"] + 30;
                 // console.log(user["today_payment"]);
                 await user.registered.participants.push(newParticipant._id);
                 await college.registered.participants.push(newParticipant._id);
                 await college.save();
                 await user.save();
+                
+                await sendmail('/participant.html',newParticipant.email,"You have Registered for Spectrum\'19",replacements);
                // console.log("Saved");
            return res.json({status: true, addParticipant: true, alreadyAdded:false});
            

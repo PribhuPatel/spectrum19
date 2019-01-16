@@ -105,6 +105,10 @@ module.exports = {
                 if (error) {
                     console.log(error);
                     // callback(error);
+                } else{
+                    // console.log(response);
+                    
+            (error? reject(error) : resolve(response));
                 }
             });
         });

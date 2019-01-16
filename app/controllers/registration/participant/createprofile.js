@@ -69,8 +69,9 @@ module.exports = {
                 await college.save();
                 await user.save();
                 
-                await sendmail('/participant.html',newParticipant.email,"You have Registered for Spectrum\'19",replacements);
-               // console.log("Saved");
+                let mail = await sendmail('/participant.html',newParticipant.email,"You have Registered for Spectrum\'19",replacements);
+               console.log(mail);
+                // console.log("Saved");
            return res.json({status: true, addParticipant: true, alreadyAdded:false});
            
         //    return res.json({status: true, addParticipant: true,participant_payment: newParticipant.payment});

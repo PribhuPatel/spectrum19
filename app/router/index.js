@@ -30,7 +30,7 @@ router.get('/signup', function(req, res, next) {
 router.get('/verify/:token',async function(req,res){
     let token = req.params.token;
     if(token.match(/^[0-9a-fA-F]{24}$/)){
-    let verify = await getSingleData(SingleEntries,{_id:},'verify');
+    let verify = await getSingleData(SingleEntries,{_id:token},'verify');
     if(verify===null){
         return res.send("Token is not Acceptable");
     } else {

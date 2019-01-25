@@ -5,8 +5,10 @@ var config={
     service: 'gmail',
         auth:
         {
-        user: 'spectrum@adit.ac.in',
-      pass: 'Spec1700@adit19'
+        // user: 'spectrum@adit.ac.in',
+        user:'markhentony@gmail.com',
+        pass:'markhentony@12345'
+    //   pass: 'Spec1700@adit2019'
     }
 }
 
@@ -23,6 +25,7 @@ var readHTMLFile = function(path, callback) {
         }
     });
 };
+
 module.exports = {
     // readHTMLFile,
     transporter,config

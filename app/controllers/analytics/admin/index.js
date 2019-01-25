@@ -14,13 +14,13 @@ router.post('/getdepartmentdata', require('./getdepartmentdata').getDepartmentDa
 
 router.post('/getcollegedata', require('./getcollegewisedata').getCollegeWiseData);
 
-router.get('/portalstatus', require('./portalstatus').getPortalStatus);
+router.post('/getparticipantdata', require('./getparticipantdata').getParticipantWiseData);
 
-// router.get('/portalstatus/on', require('./portalstatus').portalStatusOn);
+router.get('/portalstatus', require('./portalstatus').getPortalStatus);
 
 router.get('/changeportalstatus', require('./portalstatus').portalStatusChange);
 
-router.get('/cron', require('./cronjob').runCron);
+// router.get('/cron', require('./cronjob').runCron);
 
 router.post('/sendnotifications', require('./sendnotification').sendNotification);
 

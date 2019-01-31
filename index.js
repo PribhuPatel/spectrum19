@@ -42,10 +42,10 @@ app.use('/qrapp',require('./app/controllers/qrapp'));
 
 
 
-app.post('/cron/:password',require('./app/controllers/cronjob').runCron);
-app.get('/cron/downloaddb/:password',require('./app/controllers/cronjob').downloadDB);
+// app.post('/cron/:password',require('./app/controllers/cronjob').runCron);
+// app.get('/cron/downloaddb/:password',require('./app/controllers/cronjob').downloadDB);
 
-app.post('/csv/getbyuser',require('./app/controllers/csv').getByUser);
+// app.post('/csv/getbyuser',require('./app/controllers/csv').getByUser);
 
 
 // var port = process.env.PORT || 5000;

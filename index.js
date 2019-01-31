@@ -48,8 +48,8 @@ app.use('/qrapp',require('./app/controllers/qrapp'));
 // app.post('/csv/getbyuser',require('./app/controllers/csv').getByUser);
 
 
-// var port = process.env.PORT || 5000;
-var port = 80;
+var port = process.env.PORT || 5000;
+// var port = 80;
   // catch 404 and forward to error handler
   app.use(handle404Error);
   

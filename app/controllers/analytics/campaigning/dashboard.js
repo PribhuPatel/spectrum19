@@ -8,7 +8,13 @@ module.exports = {
     //   let colleges =[];
     let date = localDate();
     let da = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +date.getDate() ;
-       let da1 = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1) ;
+    let da1;
+    if(date.getDate()==31){
+            da1 = date.getFullYear()+ '-'+(date.getMonth()+2)+'-' +(1) ;
+
+         } else {
+            da1 = date.getFullYear()+ '-'+(date.getMonth()+1)+'-' +(date.getDate()+1) ;
+         }
        da= da.concat(' 00:00:00 UTC')
        da1= da1.concat(' 00:00:00 UTC')
        da = new Date(da);
@@ -27,10 +33,10 @@ module.exports = {
         //     });
         // }
         // let check = await getSingleData(GlobalVars,{key:'portal_status'},'value');
-        
+
     //   let daily_revenue = await getManyData(Revenue,{});
       let revenue = await Revenue.aggregate([{
-          $group: { 
+          $group: {
           _id: null,
           revenue: { $sum: "$revenue" }
       }
@@ -42,7 +48,7 @@ module.exports = {
     let users = await getManyData(Users, {},'name phone today_payment');
     var usersdata = [];
     for(let i=0;i<users.length;i++){
-        let today_registered = await getCount(Participants,{$and:[{created_time:{ $gte: da,$lt:  da1}},{createby:users[i]._id}]});
+        let today_registered = await getCount(Participants,{$and:[{created_date:{ $gte: da,$lt:  da1}},{createby:users[i]._id}]});
         usersdata.push({
             id:users[i]._id,
             phone: users[i].phone,
@@ -57,7 +63,7 @@ module.exports = {
         });
     }
   };
-  
+
 
   // var runForEach = async (Participants)=>{
   //       let payment = 0;

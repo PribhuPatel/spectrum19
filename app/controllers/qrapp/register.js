@@ -9,23 +9,32 @@ module.exports = {
     checkQr: async (req,res)=>{
         let qr  = req.body.qr;
         let participant = null
+        let alreadyRegistered  =false
         try{
         let id= ObjectId(qr);
-        let parti = await getSingleDataWithPopulate(Participants,{_id:id},'college','firstname lastname phone college package','name');
-        
+        let parti = await getSingleDataWithPopulate(Participants,{_id:id},'college','firstname lastname phone college package registered','name');
+    
         let package= false ;
         if(parti==null || parti== undefined){
             participant = null;
         } else {
+            if(parti.package !=null){
+                package= true;
+            }
+            if(parti.registered){
+                alreadyRegistered=true;
+            } else {
+                
+            parti.registered =true;
+            parti.save();
+            } 
             // participant = parti;
-        if(parti.package !=null){
-            package= true;
-        }
+       
             participant = {name:parti.firstname + ' '+ parti.lastname, phone:parti.phone, college:parti.college.name,package:package}
-        }
-        return res.json({status:true,participant:participant});
+    }
+        return res.json({status:true,participant:participant,error:false,alreadyRegistered:alreadyRegistered});
     } catch(e){
-        return res.json({status:true,participant:null});
+        return res.json({status:true,participant:null,error:true,alreadyRegistered:false});
         }
     }
   };

@@ -9,7 +9,7 @@ module.exports = {
     checkQr: async (req,res)=>{
         let qr  = req.body.qr;
         let participant = null
-        let alreadyRegistered  =false
+        var alreadyRegistered=false
         try{
         let id= ObjectId(qr);
         let parti = await getSingleDataWithPopulate(Participants,{_id:id},'college','firstname lastname phone college package registered','name');
@@ -24,9 +24,10 @@ module.exports = {
             if(parti.registered){
                 alreadyRegistered=true;
             } else {
+                console.log(parti);
                 
             parti.registered =true;
-            parti.save();
+            await parti.save();
             } 
             // participant = parti;
        

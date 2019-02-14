@@ -158,6 +158,20 @@ var UserSchema = new Schema({
     participant:{type: Schema.Types.ObjectId , ref:'Participants', required: true},
   })
 
+  var eventAttendaceSchema = new Schema({
+    event:{type:Schema.Types.ObjectId, ref: 'Events', required: true},
+    present:[{type: Schema.Types.ObjectId , ref:'Participants', required: true}],
+    absent:[{type: Schema.Types.ObjectId , ref:'Participants', required: true}]
+  })
+
+  var onDayUsersSchema = new Schema({
+    name:{type:String, default:null},
+    phone:{type:Number,required:true},
+    password:{type:String,default:null,required:true},
+    role:{type:String,default:null},
+    event:{type:Schema.Types.ObjectId, ref: 'Events', default:null}
+  })
+
   var SingleEntriesSchema = new Schema({
     participant:{type: Schema.Types.ObjectId , ref:'Participants', required: true},
     event:{type:Schema.Types.ObjectId, ref: 'Events', default:null},
@@ -183,7 +197,9 @@ var Admins = mongoose.model('Admins', AdminsSchema);
 var Packages= mongoose.model('Packages', PackageSchema);
 var NotificationTokens= mongoose.model('NotificationTokens', NotificationTokenSchema);
 var SingleEntries= mongoose.model('SingleEntries', SingleEntriesSchema);
+var Ondayusers = mongoose.model('Ondayusers',onDayUsersSchema);
+var Eventattendance = mongoose.model('Eventattendance',eventAttendaceSchema);
 
 module.exports = {
-    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins, Schedules,Revenue,Packages, NotificationTokens,SingleEntries
+    Users,Participants, Events, Departments, Entries, GlobalVars, Tokens, Colleges, Admins, Schedules,Revenue,Packages, NotificationTokens,SingleEntries,Ondayusers, Eventattendance
 }

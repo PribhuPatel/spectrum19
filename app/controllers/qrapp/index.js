@@ -8,7 +8,7 @@ router.post('/register',verifyToken,require('./register').checkQr);
 
 router.post('/event/register',verifyToken,require('./event').checkQr);
 
-router.post('/event/checkAttendance',verifyToken,require('./event').checkAttendance);
+router.post('/event/checkAttendance',verifyToken,require('./event').ckeckAttendance);
 
 
 module.exports = router;

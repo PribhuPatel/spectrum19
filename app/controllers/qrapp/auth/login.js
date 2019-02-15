@@ -7,7 +7,7 @@ module.exports = {
     login:  async(req, res) => {
   
         let userPhone = req.body.phone;
-        let loginuser = await getSingleData(Ondayusers,{phone:userPhone},'name password role department phone');
+        let loginuser = await getSingleData(Ondayusers,{phone:userPhone});
        
       console.log(loginuser);
         if(!loginuser){

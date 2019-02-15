@@ -41,7 +41,7 @@ module.exports = {
         event.push(req.user.event);
         let present = await getSingleDataWithPopulate(Eventattendance,{event:req.user.event},'present','present','firstname lastname phone');
         let absent = await getManyData(Participants,{$and:[{events:{'$in':event}},{_id:{$nin: present.present.$.id}}]},'firstname lastname phone')
-        return res.jsun({status:true, presentParticipants:present.present, absentParticipants: absent})
+        return res.json({status:true, presentParticipants:present.present, absentParticipants: absent})
     }
   };
   

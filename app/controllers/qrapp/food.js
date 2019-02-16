@@ -47,7 +47,7 @@ module.exports = {
                 }
             } 
        
-            participant = {name:parti.name, phone:parti.phone}
+            participant = {name:parti.name, team:parti.team}
     }
         return res.json({status:true,participant:participant,error:false,alreadyRegistered:alreadyRegistered,day:day});
     } catch(e){

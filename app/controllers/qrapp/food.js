@@ -7,6 +7,9 @@ const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
     checkQr: async (req,res)=>{
+        console.log(req.user);
+        console.log(req.body.qr);
+        
         let qr  = req.body.qr;
         let participant = null;
         var alreadyRegistered=false;

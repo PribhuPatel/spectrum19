@@ -7,7 +7,7 @@ module.exports = {
     */
     mongoDB : {
         user: 'admin',
-        password: 'shreeji1',
+        password: 'hellofakepass',
         // host : '34.73.92.20',
         host:'ds135003.mlab.com',
         port:35003,
@@ -18,10 +18,8 @@ module.exports = {
      nodemailer:{
         service: 'gmail',
         auth: {
-            user: 'spectrum@adit.ac.in',
-            // user:'markhentony@gmail.com',
-            // pass:'markhentony@12345'
-          pass: 'Spec1700@adit2019'
+            user: 'spectrumtemp@adit.ac.in',
+          pass: 'hellofakepass'
         }
     },
     /* do not change this salrounds value */
